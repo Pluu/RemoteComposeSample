@@ -27,6 +27,7 @@ import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
     private val client = HttpClient(OkHttp) {
@@ -87,7 +88,7 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                     scope.launch {
                         isLoading = true
                         try {
-                            uiResponse = client.get("http://10.0.2.2:8080/ui/schemes") {
+                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/schemes") {
                                 parameter("q", searchQuery)
                             }.body()
                         } catch (e: Exception) {
@@ -110,7 +111,7 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                     scope.launch {
                         isLoading = true
                         try {
-                            uiResponse = client.get("http://10.0.2.2:8080/ui/schemes").body()
+                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/schemes").body()
                         } catch (e: Exception) {
                             Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         } finally {
@@ -128,7 +129,7 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                     scope.launch {
                         isLoading = true
                         try {
-                            uiResponse = client.get("http://10.0.2.2:8080/ui/custom").body()
+                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/custom").body()
                         } catch (e: Exception) {
                             Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         } finally {
@@ -174,7 +175,7 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                     when (action) {
                         is UIAction.OpenScheme -> {
                             try {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(action.url))
+                                val intent = Intent(Intent.ACTION_VIEW, action.url.toUri())
                                 context.startActivity(intent)
                             } catch (e: Exception) {
                                 Toast.makeText(context, "Could not open scheme", Toast.LENGTH_SHORT).show()

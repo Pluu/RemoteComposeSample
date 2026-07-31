@@ -29,7 +29,7 @@ fun RemoteComposeScreen(client: HttpClient, modifier: Modifier = Modifier) {
 
     LaunchedEffect(Unit) {
         try {
-            val response = client.get("http://10.0.2.2:8080/ui/remote")
+            val response = client.get("${NetworkConfig.BASE_URL}/ui/remote")
             bytes = response.readRawBytes()
         } catch (e: Exception) {
             errorMessage = e.message
