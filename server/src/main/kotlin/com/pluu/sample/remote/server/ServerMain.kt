@@ -17,7 +17,8 @@ fun main() {
             })
         }
         routing {
-            remoteComposeApi()
+            jsonUiApi()
+            binaryUiApi()
         }
     }.start(wait = true)
 }
