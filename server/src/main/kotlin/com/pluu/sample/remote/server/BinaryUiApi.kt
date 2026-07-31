@@ -2,10 +2,11 @@ package com.pluu.sample.remote.server
 
 import androidx.compose.remote.core.RcPlatformServices
 import androidx.compose.remote.creation.RemoteComposeWriter
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.http.ContentType
+import io.ktor.server.application.call
+import io.ktor.server.response.respondBytes
+import io.ktor.server.routing.Routing
+import io.ktor.server.routing.get
 
 fun Routing.binaryUiApi() {
     get("/ui/remote") {
