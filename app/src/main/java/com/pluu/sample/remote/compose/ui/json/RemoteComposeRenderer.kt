@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.compose
+package com.pluu.sample.remote.compose.ui.json
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import com.pluu.sample.remote.common.RemoteUIComponent
 import com.pluu.sample.remote.common.UIAction
 import com.pluu.sample.remote.common.UIStyle
-import androidx.core.graphics.toColorInt
 
 @Composable
 fun RemoteUI(

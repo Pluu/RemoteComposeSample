@@ -1,5 +1,6 @@
-package com.pluu.sample.remote.compose
+package com.pluu.sample.remote.compose.ui.binary
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,13 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.remote.player.view.RemoteComposePlayer
+import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.readRawBytes
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-
-import android.annotation.SuppressLint
 
 @SuppressLint("RestrictedApi")
 @Composable

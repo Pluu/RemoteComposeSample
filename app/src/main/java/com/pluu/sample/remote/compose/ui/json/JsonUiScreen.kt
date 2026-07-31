@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.compose
+package com.pluu.sample.remote.compose.ui.json
 
 import android.content.Intent
 import android.widget.Toast
@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.pluu.sample.remote.common.RemoteUIResponse
 import com.pluu.sample.remote.common.UIAction
+import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -44,8 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun JsonUiScreen(
     client: HttpClient,
-    onBinaryUiClick: () -> Unit,
-    onItemsUiClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -124,18 +124,13 @@ fun JsonUiScreen(
             }
         }
 
-        Button(
-            onClick = onBinaryUiClick,
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
-        ) {
-            Text("Get Remote Compose UI (Binary)")
-        }
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = onItemsUiClick,
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+            onClick = onBackClick,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Get Server Items (List)")
+            Text("Back to Menu")
         }
 
         Spacer(modifier = Modifier.height(24.dp))

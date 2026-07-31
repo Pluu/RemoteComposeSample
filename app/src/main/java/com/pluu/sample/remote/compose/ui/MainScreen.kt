@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.compose
+package com.pluu.sample.remote.compose.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,19 +20,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pluu.sample.remote.compose.ui.binary.RemoteComposeScreen
+import com.pluu.sample.remote.compose.ui.json.ItemsScreen
+import com.pluu.sample.remote.compose.ui.json.JsonUiScreen
 import io.ktor.client.HttpClient
 
 @Composable
 fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Json) }
+    var currentScreen by remember { mutableStateOf(Screen.Menu) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
-            .verticalScroll(rememberScrollState())
     ) {
         when (currentScreen) {
+            Screen.Menu -> {
+                MenuScreen(onMenuClick = { currentScreen = it })
+            }
             Screen.Binary -> {
                 Text(text = "Remote Compose Binary UI", style = MaterialTheme.typography.headlineSmall)
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
@@ -41,17 +46,16 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(16.dp))
                 
                 Button(
-                    onClick = { currentScreen = Screen.Json },
+                    onClick = { currentScreen = Screen.Menu },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Back to Json UI")
+                    Text("Back to Menu")
                 }
             }
             Screen.Items -> {
                 Text(text = "Server Items List", style = MaterialTheme.typography.headlineSmall)
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 
-                // Screen separation: ItemsScreen handles its own scrolling
                 Box(modifier = Modifier.height(400.dp)) {
                     ItemsScreen(client = client)
                 }
@@ -59,23 +63,24 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { currentScreen = Screen.Json },
+                    onClick = { currentScreen = Screen.Menu },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Back to Json UI")
+                    Text("Back to Menu")
                 }
             }
             Screen.Json -> {
-                JsonUiScreen(
-                    client = client,
-                    onBinaryUiClick = { currentScreen = Screen.Binary },
-                    onItemsUiClick = { currentScreen = Screen.Items }
-                )
+                Box(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
+                    JsonUiScreen(
+                        client = client,
+                        onBackClick = { currentScreen = Screen.Menu }
+                    )
+                }
             }
         }
     }
 }
 
 enum class Screen {
-    Json, Binary, Items
+    Menu, Json, Binary, Items
 }

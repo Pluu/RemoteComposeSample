@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.compose
+package com.pluu.sample.remote.compose.ui.json
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.pluu.sample.remote.common.RemoteUIResponse
 import com.pluu.sample.remote.common.UIAction
+import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
