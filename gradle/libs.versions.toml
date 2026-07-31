@@ -10,6 +10,7 @@ kotlin = "2.4.10"
 composeBom = "2026.06.01"
 ktor = "3.5.1"
 kotlinxSerialization = "1.11.0"
+remote-compose = "1.0.0-alpha16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +42,13 @@ ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-conte
 
 # Serialization
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+# Remote Compose
+remotecompose-core = { group = "androidx.compose.remote", name = "remote-core", version.ref = "remote-compose" }
+remotecompose-player-view = { group = "androidx.compose.remote", name = "remote-player-view", version.ref = "remote-compose" }
+remotecompose-creation = { group = "androidx.compose.remote", name = "remote-creation-jvm", version.ref = "remote-compose" }
+remotecompose-creation-compose = { group = "androidx.compose.remote", name = "remote-creation-compose", version.ref = "remote-compose" }
+remotecompose-tooling-preview = { group = "androidx.compose.remote", name = "remote-tooling-preview", version.ref = "remote-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

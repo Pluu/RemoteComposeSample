@@ -15,4 +15,7 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.remotecompose.core)
+    implementation(libs.remotecompose.creation)
 }
