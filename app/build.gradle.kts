@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.pluu.sample.remote.compose"
-        minSdk = 28
+        minSdk = 29
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
