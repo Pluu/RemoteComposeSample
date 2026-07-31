@@ -1,14 +1,14 @@
-package com.pluu.sample.remote.server
+package com.pluu.sample.remote.server.ui.binary
 
 import androidx.compose.remote.core.RcPlatformServices
 import androidx.compose.remote.creation.RemoteComposeWriter
 import io.ktor.http.ContentType
 import io.ktor.server.application.call
 import io.ktor.server.response.respondBytes
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
-fun Routing.binaryUiApi() {
+fun Route.remoteApi() {
     get("/ui/remote") {
         val writer = RemoteComposeWriter(400, 600, "", RcPlatformServices.None)
         writer.apply {
