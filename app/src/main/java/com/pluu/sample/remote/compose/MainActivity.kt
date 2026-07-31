@@ -68,6 +68,7 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
     var uiResponse by remember { mutableStateOf<RemoteUIResponse?>(null) }
     var searchQuery by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
+    var showBinaryUi by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -141,13 +142,30 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
             }
         }
 
+        Button(
+            onClick = {
+                uiResponse = null
+                showBinaryUi = true
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        ) {
+            Text("Get Remote Compose UI (Binary)")
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(androidx.compose.ui.Alignment.CenterHorizontally))
         }
 
+        if (showBinaryUi) {
+            Text(text = "Remote Compose Binary UI", style = MaterialTheme.typography.headlineSmall)
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            RemoteComposeScreen(client = client, modifier = Modifier.height(400.dp))
+        }
+
         uiResponse?.let { response ->
+            showBinaryUi = false
             Text(text = response.title, style = MaterialTheme.typography.headlineSmall)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             RemoteUI(
