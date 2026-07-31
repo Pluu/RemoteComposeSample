@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.pluu.sample.remote.common.RemoteUIComponent
 import com.pluu.sample.remote.common.UIAction
 import com.pluu.sample.remote.common.UIStyle
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun RemoteUI(
@@ -30,7 +31,7 @@ fun RemoteUI(
                 text = component.text,
                 fontSize = component.style.fontSize.sp,
                 modifier = Modifier.applyStyle(component.style),
-                color = component.style.color?.let { Color(android.graphics.Color.parseColor(it)) } ?: Color.Unspecified
+                color = component.style.color?.let { Color(it.toColorInt()) } ?: Color.Unspecified
             )
         }
         is RemoteUIComponent.Button -> {
