@@ -62,4 +62,25 @@ fun Routing.jsonUiApi() {
         )
         call.respond(RemoteUIResponse(title = "Custom UI Case", root = root))
     }
+
+    get("/ui/items") {
+        val items = (1..20).map { i ->
+            RemoteUIComponent.Row(
+                children = listOf(
+                    RemoteUIComponent.Text(
+                        text = "Item #$i",
+                        style = UIStyle(fontSize = 18, padding = 16)
+                    ),
+                    RemoteUIComponent.Button(
+                        text = "View",
+                        action = UIAction.ShowToast("Clicked Item #$i"),
+                        style = UIStyle(padding = 8)
+                    )
+                ),
+                style = UIStyle(padding = 4)
+            )
+        }
+        val root = RemoteUIComponent.Column(children = items)
+        call.respond(RemoteUIResponse(title = "Server Item List", root = root))
+    }
 }

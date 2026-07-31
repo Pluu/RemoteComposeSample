@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 fun JsonUiScreen(
     client: HttpClient,
     onBinaryUiClick: () -> Unit,
+    onItemsUiClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -128,6 +129,13 @@ fun JsonUiScreen(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
         ) {
             Text("Get Remote Compose UI (Binary)")
+        }
+
+        Button(
+            onClick = onItemsUiClick,
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        ) {
+            Text("Get Server Items (List)")
         }
 
         Spacer(modifier = Modifier.height(24.dp))

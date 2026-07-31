@@ -1,5 +1,6 @@
 package com.pluu.sample.remote.compose
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,7 +24,7 @@ import io.ktor.client.HttpClient
 
 @Composable
 fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
-    var showBinaryUi by remember { mutableStateOf(false) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Json) }
 
     Column(
         modifier = modifier
@@ -31,24 +32,50 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        if (showBinaryUi) {
-            Text(text = "Remote Compose Binary UI", style = MaterialTheme.typography.headlineSmall)
-            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            RemoteComposeScreen(client = client, modifier = Modifier.height(400.dp))
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
-            Button(
-                onClick = { showBinaryUi = false },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Back to Json UI")
+        when (currentScreen) {
+            Screen.Binary -> {
+                Text(text = "Remote Compose Binary UI", style = MaterialTheme.typography.headlineSmall)
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                RemoteComposeScreen(client = client, modifier = Modifier.height(400.dp))
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                Button(
+                    onClick = { currentScreen = Screen.Json },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Back to Json UI")
+                }
             }
-        } else {
-            JsonUiScreen(
-                client = client,
-                onBinaryUiClick = { showBinaryUi = true }
-            )
+            Screen.Items -> {
+                Text(text = "Server Items List", style = MaterialTheme.typography.headlineSmall)
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                
+                // Screen separation: ItemsScreen handles its own scrolling
+                Box(modifier = Modifier.height(400.dp)) {
+                    ItemsScreen(client = client)
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = { currentScreen = Screen.Json },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Back to Json UI")
+                }
+            }
+            Screen.Json -> {
+                JsonUiScreen(
+                    client = client,
+                    onBinaryUiClick = { currentScreen = Screen.Binary },
+                    onItemsUiClick = { currentScreen = Screen.Items }
+                )
+            }
         }
     }
+}
+
+enum class Screen {
+    Json, Binary, Items
 }
