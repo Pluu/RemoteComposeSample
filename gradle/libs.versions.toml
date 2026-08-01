@@ -47,6 +47,8 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 # Remote Compose
 remotecompose-core = { group = "androidx.compose.remote", name = "remote-core", version.ref = "remote-compose" }
 remotecompose-player-view = { group = "androidx.compose.remote", name = "remote-player-view", version.ref = "remote-compose" }
+remotecompose-player-compose = { group = "androidx.compose.remote", name = "remote-player-compose", version.ref = "remote-compose" }
+remotecompose-player-core = { group = "androidx.compose.remote", name = "remote-player-core", version.ref = "remote-compose" }
 remotecompose-creation = { group = "androidx.compose.remote", name = "remote-creation-jvm", version.ref = "remote-compose" }
 remotecompose-creation-compose = { group = "androidx.compose.remote", name = "remote-creation-compose", version.ref = "remote-compose" }
 remotecompose-tooling-preview = { group = "androidx.compose.remote", name = "remote-tooling-preview", version.ref = "remote-compose" }
