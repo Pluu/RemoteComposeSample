@@ -31,7 +31,7 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                             modifier = Modifier
                                 .padding(end = 8f)
                                 .onClick {
-                                    hostAction("{\"action\":\"back\"}")
+                                    hostAction("back")
                                 }
                         ) {
                             Text(text = "←", fontSize = 24.rsp)
@@ -55,7 +55,7 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                                 .fillMaxWidth()
                                 .padding(0f, 12f, 0f, 12f)
                                 .onClick {
-                                    hostAction("{\"action\":\"navigate\",\"url\":\"$path\"}")
+                                    hostAction(path)
                                 },
                         ) {
                             Text(

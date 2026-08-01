@@ -33,7 +33,7 @@ fun Route.docRoutes(rcProfile: RcProfile) {
                             modifier = Modifier
                                 .padding(end = 8f)
                                 .onClick {
-                                    hostAction("{\"action\":\"back\"}")
+                                    hostAction("back")
                                 }
                         ) {
                             Text(text = "←", fontSize = 24.rsp)
