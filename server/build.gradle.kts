@@ -8,6 +8,10 @@ application {
     mainClass.set("com.pluu.sample.remote.server.ServerMainKt")
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
     implementation(project(":common"))
     implementation(libs.ktor.server.core)
@@ -16,6 +20,5 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.remotecompose.core)
     implementation(libs.remotecompose.creation)
 }
