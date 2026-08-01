@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.compose.ui.binary
+package com.pluu.sample.remote.compose.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
@@ -22,17 +22,29 @@ import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.readRawBytes
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun RemoteComposeScreen(client: HttpClient, modifier: Modifier = Modifier) {
-    var bytes by remember { mutableStateOf<ByteArray?>(null) }
-    var isLoading by remember { mutableStateOf(true) }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
+fun RemoteComposeScreen(
+    client: HttpClient,
+    path: String,
+    onNavigate: (String) -> Unit,
+    onBack: () -> Unit,
+    onOpenUrl: (String) -> Unit,
+    onShowToast: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var bytes by remember(path) { mutableStateOf<ByteArray?>(null) }
+    var isLoading by remember(path) { mutableStateOf(true) }
+    var errorMessage by remember(path) { mutableStateOf<String?>(null) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(path) {
+        isLoading = true
         try {
-            val response = client.get("${NetworkConfig.BASE_URL}/ui/remote")
+            val response = client.get("${NetworkConfig.BASE_URL}$path")
             bytes = response.readRawBytes()
         } catch (e: Exception) {
             errorMessage = e.message
@@ -54,6 +66,11 @@ fun RemoteComposeScreen(client: HttpClient, modifier: Modifier = Modifier) {
             AndroidView(
                 factory = { context ->
                     RemoteComposePlayer(context).apply {
+                        addIdActionListener { _, metadata ->
+                            metadata?.let {
+                                handleAction(it, onNavigate, onBack, onOpenUrl, onShowToast)
+                            }
+                        }
                         setDocument(bytes!!)
                     }
                 },
@@ -63,5 +80,34 @@ fun RemoteComposeScreen(client: HttpClient, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxSize()
             )
         }
+    }
+}
+
+private fun handleAction(
+    metadata: String,
+    onNavigate: (String) -> Unit,
+    onBack: () -> Unit,
+    onOpenUrl: (String) -> Unit,
+    onShowToast: (String) -> Unit
+) {
+    try {
+        val json = Json.parseToJsonElement(metadata).jsonObject
+        when (json["action"]?.jsonPrimitive?.content) {
+            "navigate" -> {
+                val url = json["url"]?.jsonPrimitive?.content
+                if (url != null) onNavigate(url)
+            }
+            "back" -> onBack()
+            "open" -> {
+                val url = json["url"]?.jsonPrimitive?.content
+                if (url != null) onOpenUrl(url)
+            }
+            "toast" -> {
+                val message = json["message"]?.jsonPrimitive?.content
+                if (message != null) onShowToast(message)
+            }
+        }
+    } catch (e: Exception) {
+        // Ignore parsing errors
     }
 }
