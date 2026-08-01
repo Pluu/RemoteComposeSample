@@ -28,6 +28,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import io.ktor.client.request.parameter
+
 @SuppressLint("RestrictedApi")
 @Composable
 fun RemoteComposeScreen(
@@ -43,10 +47,17 @@ fun RemoteComposeScreen(
     var isLoading by remember(path) { mutableStateOf(true) }
     var errorMessage by remember(path) { mutableStateOf<String?>(null) }
 
-    LaunchedEffect(path) {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+
+    LaunchedEffect(path, configuration, density) {
         isLoading = true
         try {
-            val response = client.get("${NetworkConfig.BASE_URL}$path")
+            val response = client.get("${NetworkConfig.BASE_URL}$path") {
+                parameter("width", configuration.screenWidthDp)
+                parameter("height", configuration.screenHeightDp)
+                parameter("density", density.density)
+            }
             bytes = response.readRawBytes()
         } catch (e: Exception) {
             errorMessage = e.message
