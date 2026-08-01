@@ -57,7 +57,6 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
     ) {
         when (currentScreen) {
             Screen.Menu -> {
