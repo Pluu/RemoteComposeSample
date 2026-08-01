@@ -38,7 +38,6 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                                 Modifier
                                     .fillMaxWidth()
                                     .heightIn(min = 32.rdp, max = 64.rdp)
-                                    .padding(0f, 12f, 0f, 12f)
                                     .onClick {
                                         hostAction("{\"action\":\"navigate\",\"url\":\"$path\"}")
                                     },
