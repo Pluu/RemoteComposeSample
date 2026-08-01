@@ -1,6 +1,7 @@
 package com.pluu.sample.remote.server
 
 import androidx.compose.remote.core.RcPlatformServices
+import androidx.compose.remote.core.operations.RootContentBehavior
 import androidx.compose.remote.creation.RemoteComposeWriter
 import io.ktor.http.ContentType
 import io.ktor.server.application.ApplicationCall
@@ -15,9 +16,17 @@ suspend fun ApplicationCall.respondBinaryUI(
     height: Int = 800,
     builder: RemoteComposeWriter.() -> Unit
 ) {
-    val writer = RemoteComposeWriter(width, height, title, RcPlatformServices.None)
+    // Force API Level 6 to support ROOT_CONTENT_BEHAVIOR (65)
+    // which seems to be missing in Level 7+ of this alpha version.
+    val writer = RemoteComposeWriter(RcPlatformServices.None, 6)
     writer.apply {
-        header(width, height, title, 1.0f, 0xFFFFFFFFL)
+        header(width, height, title, 1f, 0)
+        setRootContentBehavior(
+            RootContentBehavior.NONE,
+            RootContentBehavior.ALIGNMENT_TOP or RootContentBehavior.ALIGNMENT_START,
+            RootContentBehavior.SIZING_SCALE,
+            RootContentBehavior.SCALE_FILL_WIDTH
+        )
         builder()
     }
     this.respondBytes(writer.encodeToByteArray(), ContentType.Application.OctetStream)
