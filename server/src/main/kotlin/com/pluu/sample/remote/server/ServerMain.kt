@@ -4,6 +4,7 @@ import com.pluu.sample.remote.server.ui.binary.remoteApi
 import com.pluu.sample.remote.server.ui.json.customApi
 import com.pluu.sample.remote.server.ui.json.itemsApi
 import com.pluu.sample.remote.server.ui.json.schemesApi
+import com.pluu.sample.remote.server.ui.menuApi
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
@@ -21,6 +22,7 @@ fun main() {
             })
         }
         routing {
+            menuApi()
             schemesApi()
             customApi()
             itemsApi()

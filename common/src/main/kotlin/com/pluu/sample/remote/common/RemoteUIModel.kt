@@ -34,6 +34,9 @@ sealed class UIAction {
     
     @Serializable
     data class ShowToast(val message: String) : UIAction()
+
+    @Serializable
+    data class Navigate(val screen: String) : UIAction()
 }
 
 @Serializable

@@ -2,14 +2,14 @@ package com.pluu.sample.remote.compose.ui.json
 
 import android.content.Intent
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun JsonUiScreen(
     client: HttpClient,
+    path: String,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -54,86 +56,54 @@ fun JsonUiScreen(
     var searchQuery by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
 
+    val fetchData: (String) -> Unit = { query ->
+        scope.launch {
+            isLoading = true
+            try {
+                uiResponse = client.get("${NetworkConfig.BASE_URL}$path") {
+                    if (query.isNotEmpty()) {
+                        parameter("q", query)
+                    }
+                }.body()
+            } catch (e: Exception) {
+                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    LaunchedEffect(path) {
+        fetchData("")
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
     ) {
-        // App Scheme Search
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            label = { Text("Search App Schemes") },
-            modifier = Modifier.fillMaxWidth(),
-            trailingIcon = {
-                IconButton(onClick = {
-                    scope.launch {
-                        isLoading = true
-                        try {
-                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/schemes") {
-                                parameter("q", searchQuery)
-                            }.body()
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                        } finally {
-                            isLoading = false
-                        }
+        if (path == "/ui/schemes") {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search App Schemes") },
+                modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    IconButton(onClick = { fetchData(searchQuery) }) {
+                        Icon(Icons.Default.Search, contentDescription = "Search")
                     }
-                }) {
-                    Icon(Icons.Default.Search, contentDescription = "Search")
                 }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(
-                onClick = {
-                    scope.launch {
-                        isLoading = true
-                        try {
-                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/schemes").body()
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                        } finally {
-                            isLoading = false
-                        }
-                    }
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Get Schemes")
-            }
-
-            Button(
-                onClick = {
-                    scope.launch {
-                        isLoading = true
-                        try {
-                            uiResponse = client.get("${NetworkConfig.BASE_URL}/ui/custom").body()
-                        } catch (e: Exception) {
-                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                        } finally {
-                            isLoading = false
-                        }
-                    }
-                },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Get Custom UI")
-            }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = onBackClick,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Back to Menu")
+            Text("Back")
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -142,24 +112,27 @@ fun JsonUiScreen(
         uiResponse?.let { response ->
             Text(text = response.title, style = MaterialTheme.typography.headlineSmall)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            RemoteUI(
-                component = response.root,
-                onAction = { action ->
-                    when (action) {
-                        is UIAction.OpenScheme -> {
-                            try {
-                                val intent = Intent(Intent.ACTION_VIEW, action.url.toUri())
-                                context.startActivity(intent)
-                            } catch (e: Exception) {
-                                Toast.makeText(context, "Could not open scheme", Toast.LENGTH_SHORT).show()
+            Column(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
+                RemoteUI(
+                    component = response.root,
+                    onAction = { action ->
+                        when (action) {
+                            is UIAction.OpenScheme -> {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, action.url.toUri())
+                                    context.startActivity(intent)
+                                } catch (e: Exception) {
+                                    Toast.makeText(context, "Could not open scheme", Toast.LENGTH_SHORT).show()
+                                }
                             }
-                        }
-                        is UIAction.ShowToast -> {
-                            Toast.makeText(context, action.message, Toast.LENGTH_SHORT).show()
+                            is UIAction.ShowToast -> {
+                                Toast.makeText(context, action.message, Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {}
                         }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
