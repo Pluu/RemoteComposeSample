@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.server.routing
+package com.pluu.sample.remote.server.routing.api
 
 import com.pluu.sample.remote.common.ApiItem
 import com.pluu.sample.remote.common.ApiList
@@ -8,7 +8,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
-fun Route.apiRoutes() {
+fun Route.apiListRoutes() {
     get("/api/list") {
         val response =
             ApiResponse(

@@ -1,14 +1,15 @@
 package com.pluu.sample.remote.server
 
-import androidx.compose.remote.core.CoreDocument
 import androidx.compose.remote.core.RcProfiles
 import androidx.compose.remote.creation.JvmRcPlatformServices
 import androidx.compose.remote.creation.RemoteComposeWriter
 import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.profile.Profile
-import com.pluu.sample.remote.server.routing.apiRoutes
-import com.pluu.sample.remote.server.routing.docRoutes
-import com.pluu.sample.remote.server.routing.uiRoutes
+import com.pluu.sample.remote.server.routing.api.apiListRoutes
+import com.pluu.sample.remote.server.routing.api.docRoutes
+import com.pluu.sample.remote.server.routing.ui.apiListUiRoutes
+import com.pluu.sample.remote.server.routing.ui.customListUiRoutes
+import com.pluu.sample.remote.server.routing.ui.menuRoutes
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
@@ -20,7 +21,7 @@ import kotlinx.serialization.json.Json
 fun main() {
     val profile =
         Profile(
-            CoreDocument.DOCUMENT_API_LEVEL,
+            7,
             RcProfiles.PROFILE_ANDROIDX,
             JvmRcPlatformServices(),
         ) { displayInfo, p, callback ->
@@ -38,9 +39,11 @@ fun main() {
             )
         }
         routing {
-            apiRoutes()
-            uiRoutes(rcProfile)
+            apiListRoutes()
             docRoutes(rcProfile)
+            menuRoutes(rcProfile)
+            apiListUiRoutes(rcProfile)
+            customListUiRoutes(rcProfile)
         }
     }.start(wait = true)
 }

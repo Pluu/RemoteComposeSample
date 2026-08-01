@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.server.routing
+package com.pluu.sample.remote.server.routing.api
 
 import androidx.compose.remote.creation.dsl.Modifier
 import androidx.compose.remote.creation.dsl.RcFontWeight
