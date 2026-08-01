@@ -32,6 +32,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                     listOf(
                         "API" to "/ui/api_list",
                         "Custom" to "/ui/custom_list",
+                        "Classic" to "/ui/classic_list",
                     ).forEach { (name, path) ->
                         Column(
                             modifier =

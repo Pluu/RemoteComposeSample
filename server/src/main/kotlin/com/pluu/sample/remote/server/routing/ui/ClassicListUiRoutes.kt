@@ -1,4 +1,4 @@
-package com.pluu.sample.remote.server.routing.api
+package com.pluu.sample.remote.server.routing.ui
 
 import androidx.compose.remote.creation.dsl.Modifier
 import androidx.compose.remote.creation.dsl.RcFontWeight
@@ -17,12 +17,10 @@ import io.ktor.server.response.respondBytes
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
-fun Route.docRoutes(rcProfile: RcProfile) {
-    // Dummy endpoints for the docs
-    listOf("Modifier", "RcDrawing", "RcInteractivity", "RcScope", "RcTypes").forEach { name ->
-        get("/api/doc/$name") {
-            val bytes =
-                createRcBuffer(rcProfile, *getHeaderTags(call)) {
+fun Route.classicListUiRoutes(rcProfile: RcProfile) {
+    get("/ui/classic_list") {
+        val bytes =
+            createRcBuffer(rcProfile, *getHeaderTags(call)) {
                 Column(Modifier.fillMaxSize().padding(16f)) {
                     Row(
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48f),
@@ -39,14 +37,14 @@ fun Route.docRoutes(rcProfile: RcProfile) {
                             Text(text = "←", fontSize = 24.rsp)
                         }
                         Text(
-                            text = "Sample for $name",
-                            fontSize = 20.rsp,
-                            fontWeight = RcFontWeight.Medium,
+                            text = "Classic Samples",
+                            fontSize = 24.rsp,
+                            fontWeight = RcFontWeight.Bold,
                         )
                     }
+                    Text("Coming Soon...", fontSize = 16.rsp)
                 }
-                }
-            call.respondBytes(bytes)
-        }
+            }
+        call.respondBytes(bytes)
     }
 }
