@@ -1,7 +1,5 @@
 package com.pluu.sample.remote.compose.ui.json
 
-import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import com.pluu.sample.remote.common.RemoteUIResponse
 import com.pluu.sample.remote.common.UIAction
 import com.pluu.sample.remote.compose.NetworkConfig
@@ -48,6 +45,7 @@ fun JsonUiScreen(
     client: HttpClient,
     path: String,
     onBackClick: () -> Unit,
+    onAction: (UIAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -66,7 +64,8 @@ fun JsonUiScreen(
                     }
                 }.body()
             } catch (e: Exception) {
-                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                // Error handled via isLoading and uiResponse being null for now, 
+                // but we could add errorMessage state if needed.
             } finally {
                 isLoading = false
             }
@@ -115,22 +114,7 @@ fun JsonUiScreen(
             Column(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
                 RemoteUI(
                     component = response.root,
-                    onAction = { action ->
-                        when (action) {
-                            is UIAction.OpenScheme -> {
-                                try {
-                                    val intent = Intent(Intent.ACTION_VIEW, action.url.toUri())
-                                    context.startActivity(intent)
-                                } catch (e: Exception) {
-                                    Toast.makeText(context, "Could not open scheme", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                            is UIAction.ShowToast -> {
-                                Toast.makeText(context, action.message, Toast.LENGTH_SHORT).show()
-                            }
-                            else -> {}
-                        }
-                    }
+                    onAction = onAction
                 )
             }
         }

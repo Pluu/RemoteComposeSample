@@ -1,11 +1,9 @@
 package com.pluu.sample.remote.server.ui.json
 
 import com.pluu.sample.remote.common.RemoteUIComponent
-import com.pluu.sample.remote.common.RemoteUIResponse
 import com.pluu.sample.remote.common.UIAction
 import com.pluu.sample.remote.common.UIStyle
-import io.ktor.server.application.call
-import io.ktor.server.response.respond
+import com.pluu.sample.remote.server.respondRemoteUI
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
@@ -38,6 +36,6 @@ fun Route.customApi() {
                 )
             )
         )
-        call.respond(RemoteUIResponse(title = "Custom UI Case", root = root))
+        call.respondRemoteUI(title = "Custom UI Case", root = root)
     }
 }

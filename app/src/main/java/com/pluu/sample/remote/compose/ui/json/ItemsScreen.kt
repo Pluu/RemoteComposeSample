@@ -1,6 +1,5 @@
 package com.pluu.sample.remote.compose.ui.json
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.pluu.sample.remote.common.RemoteUIResponse
 import com.pluu.sample.remote.common.UIAction
@@ -27,8 +25,11 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 
 @Composable
-fun ItemsScreen(client: HttpClient, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
+fun ItemsScreen(
+    client: HttpClient,
+    onAction: (UIAction) -> Unit,
+    modifier: Modifier = Modifier
+) {
     var uiResponse by remember { mutableStateOf<RemoteUIResponse?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -57,14 +58,7 @@ fun ItemsScreen(client: HttpClient, modifier: Modifier = Modifier) {
                 Box(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     RemoteUI(
                         component = response.root,
-                        onAction = { action ->
-                            when (action) {
-                                is UIAction.ShowToast -> {
-                                    Toast.makeText(context, action.message, Toast.LENGTH_SHORT).show()
-                                }
-                                else -> {}
-                            }
-                        }
+                        onAction = onAction
                     )
                 }
             }

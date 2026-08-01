@@ -2,28 +2,18 @@ package com.pluu.sample.remote.compose.ui
 
 import android.content.Intent
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import com.pluu.sample.remote.common.NavigationType
 import com.pluu.sample.remote.common.UIAction
 import com.pluu.sample.remote.compose.ui.binary.RemoteComposeScreen
 import com.pluu.sample.remote.compose.ui.json.ItemsScreen
@@ -32,13 +22,14 @@ import io.ktor.client.HttpClient
 
 @Composable
 fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
-    var currentScreen by remember { mutableStateOf(Screen.Menu) }
+    val navigationStack = remember { mutableStateListOf(NavigationItem("/ui/menu", NavigationType.JSON)) }
+    val currentNavigation = navigationStack.last()
     val context = LocalContext.current
 
     val onAction: (UIAction) -> Unit = { action ->
         when (action) {
             is UIAction.Navigate -> {
-                currentScreen = Screen.entries.find { it.name == action.screen } ?: Screen.Menu
+                navigationStack.add(NavigationItem(action.url, action.type))
             }
             is UIAction.OpenScheme -> {
                 try {
@@ -54,85 +45,52 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
         }
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-        when (currentScreen) {
-            Screen.Menu -> {
+    val onBack: () -> Unit = {
+        if (navigationStack.size > 1) {
+            navigationStack.removeAt(navigationStack.size - 1)
+        }
+    }
+
+    BackHandler(enabled = navigationStack.size > 1) {
+        onBack()
+    }
+
+    when (currentNavigation.type) {
+        NavigationType.JSON -> {
+            // Check if it's a menu or a specific JSON screen
+            if (currentNavigation.url.contains("menu")) {
                 MenuScreen(
                     client = client,
-                    path = "/ui/menu",
-                    onAction = onAction
+                    path = currentNavigation.url,
+                    onAction = onAction,
+                    modifier = modifier.padding(16.dp)
                 )
-            }
-            Screen.JSON_MENU -> {
-                Text(text = "JSON UI Samples", style = MaterialTheme.typography.headlineSmall)
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                MenuScreen(
+            } else if (currentNavigation.url.contains("items")) {
+                ItemsScreen(
                     client = client,
-                    path = "/ui/json-menu",
-                    onAction = onAction
+                    onAction = onAction,
+                    modifier = modifier.padding(16.dp)
                 )
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                Button(
-                    onClick = { currentScreen = Screen.Menu },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Back to Main Menu")
-                }
-            }
-            Screen.SCHEMES -> {
+            } else {
                 JsonUiScreen(
                     client = client,
-                    path = "/ui/schemes",
-                    onBackClick = { currentScreen = Screen.JSON_MENU }
+                    path = currentNavigation.url,
+                    onBackClick = onBack,
+                    onAction = onAction,
+                    modifier = modifier.padding(16.dp)
                 )
             }
-            Screen.CUSTOM -> {
-                JsonUiScreen(
-                    client = client,
-                    path = "/ui/custom",
-                    onBackClick = { currentScreen = Screen.JSON_MENU }
-                )
-            }
-            Screen.BINARY -> {
-                Text(text = "Remote Compose Binary UI", style = MaterialTheme.typography.headlineSmall)
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                RemoteComposeScreen(client = client, modifier = Modifier.height(400.dp))
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                Button(
-                    onClick = { currentScreen = Screen.Menu },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Back to Menu")
-                }
-            }
-            Screen.ITEMS -> {
-                Text(text = "Server Items List", style = MaterialTheme.typography.headlineSmall)
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                
-                Box(modifier = Modifier.height(400.dp)) {
-                    ItemsScreen(client = client)
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = { currentScreen = Screen.Menu },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Back to Menu")
-                }
-            }
+        }
+        NavigationType.BINARY -> {
+            RemoteComposeScreen(
+                client = client,
+                modifier = modifier.fillMaxSize().padding(16.dp)
+            )
         }
     }
 }
 
-enum class Screen {
-    Menu, JSON_MENU, SCHEMES, CUSTOM, BINARY, ITEMS
-}
+data class NavigationItem(
+    val url: String,
+    val type: NavigationType
+)

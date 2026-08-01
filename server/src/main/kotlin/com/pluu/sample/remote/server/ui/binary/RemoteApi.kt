@@ -1,17 +1,12 @@
 package com.pluu.sample.remote.server.ui.binary
 
-import androidx.compose.remote.core.RcPlatformServices
-import androidx.compose.remote.creation.RemoteComposeWriter
-import io.ktor.http.ContentType
-import io.ktor.server.application.call
-import io.ktor.server.response.respondBytes
+import com.pluu.sample.remote.server.respondBinaryUI
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
 fun Route.remoteApi() {
     get("/ui/remote") {
-        val writer = RemoteComposeWriter(400, 600, "", RcPlatformServices.None)
-        writer.apply {
+        call.respondBinaryUI(title = "Remote UI") {
             header(400, 600, "Remote UI", 1.0f, 0xFFFFFFFFL)
 
             // Header
@@ -47,6 +42,5 @@ fun Route.remoteApi() {
                 0f, 0f, 0
             )
         }
-        call.respondBytes(writer.encodeToByteArray(), ContentType.Application.OctetStream)
     }
 }

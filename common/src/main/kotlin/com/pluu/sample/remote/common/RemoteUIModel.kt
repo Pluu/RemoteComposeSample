@@ -36,7 +36,15 @@ sealed class UIAction {
     data class ShowToast(val message: String) : UIAction()
 
     @Serializable
-    data class Navigate(val screen: String) : UIAction()
+    data class Navigate(
+        val url: String,
+        val type: NavigationType = NavigationType.JSON
+    ) : UIAction()
+}
+
+@Serializable
+enum class NavigationType {
+    JSON, BINARY
 }
 
 @Serializable
