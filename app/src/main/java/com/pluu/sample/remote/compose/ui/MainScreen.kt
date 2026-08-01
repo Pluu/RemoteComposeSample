@@ -4,13 +4,11 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import io.ktor.client.HttpClient
 
@@ -46,6 +44,6 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
         onShowToast = { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         },
-        modifier = modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier.fillMaxSize()
     )
 }
