@@ -7,6 +7,7 @@
 - **코드 수정 및 생성**:
     - 프로젝트의 기존 스타일과 패턴을 준수합니다.
     - **Single Import**: 와일드카드(`*`) 대신 항상 명시적인 단일 임포트를 사용합니다.
+    - **Code Formatting**: 코드를 작성하거나 수정할 때 항상 프로젝트의 코드 스타일(예: ktlint)을 준수합니다. 가능하면 `./gradlew spotlessApply`를 실행하여 포맷을 자동 적용합니다.
     - 적절한 도구(`write_file`, `replace_file_content`, `multi_replace_file_content`)를 사용하여 정확하게 수정합니다.
 - **문서화**: 새로운 기능이나 중요한 변경 사항이 있는 경우 관련 문서(`README.md`, `.artifact.md`)를 업데이트합니다.
 
