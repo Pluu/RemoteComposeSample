@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.remote.core.CoreDocument
 import androidx.compose.remote.player.compose.impl.RemoteComposePlayer
 import androidx.compose.remote.player.core.RemoteDocument
+import androidx.compose.remote.player.core.platform.BitmapLoader
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -24,9 +25,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.statement.readRawBytes
+import java.io.InputStream
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -82,6 +86,17 @@ fun RemoteComposeScreen(
         } else if (bytes != null) {
             val remoteDocument = remember(bytes) { RemoteDocument(bytes!!) }
 
+            val bitmapLoader =
+                remember(client) {
+                    object : BitmapLoader {
+                        override fun loadBitmap(url: String): InputStream {
+                            return runBlocking {
+                                client.get(url).body<InputStream>()
+                            }
+                        }
+                    }
+                }
+
             DisposableEffect(remoteDocument) {
                 val listener =
                     CoreDocument.IdActionCallback { id, metadata ->
@@ -105,6 +120,7 @@ fun RemoteComposeScreen(
                 onNamedAction = { name, _, _ ->
                     handleAction(name, onNavigate, onBack, onOpenUrl, onShowToast)
                 },
+                bitmapLoader = bitmapLoader,
             )
         }
     }
