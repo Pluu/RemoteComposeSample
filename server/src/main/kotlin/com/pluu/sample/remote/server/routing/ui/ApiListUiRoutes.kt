@@ -38,20 +38,6 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                 "Gestures" to "/api/doc/Gestures",
             )
 
-        val tabGroups =
-            mapOf(
-                "Core" to listOf("Modifier", "RcScope", "RcTypes", "Layout", "DrawScope"),
-                "Components" to listOf("Text", "Button", "Image", "Icon", "Checkbox", "Switch"),
-                "Advanced" to listOf("RcDrawing", "RcInteractivity", "Animation", "Gestures"),
-            )
-
-        val currentTab = call.parameters["tab"] ?: tabGroups.keys.first()
-
-        val filteredSamples =
-            samples.filter { (name, _) ->
-                tabGroups[currentTab]?.contains(name) == true
-            }
-
         val bytes =
             createRcBuffer(rcProfile, *getHeaderTags(call)) {
                 Column(Modifier.fillMaxSize().padding(16f)) {
@@ -77,31 +63,7 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                         )
                     }
 
-                    // Tab Bar
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(top = 16f, bottom = 16f),
-                        horizontal = RcRowHorizontalPositioning.Start,
-                    ) {
-                        tabGroups.keys.forEach { tab ->
-                            val isSelected = tab == currentTab
-                            Box(
-                                modifier =
-                                    Modifier
-                                        .padding(end = 12f)
-                                        .onClick {
-                                            hostAction("/ui/api_list?tab=$tab")
-                                        },
-                            ) {
-                                Text(
-                                    text = if (isSelected) "● $tab" else tab,
-                                    fontSize = 18.rsp,
-                                    fontWeight = if (isSelected) RcFontWeight.Bold else RcFontWeight.Normal,
-                                )
-                            }
-                        }
-                    }
-
-                    filteredSamples.forEach { (name, path) ->
+                    samples.forEach { (name, path) ->
                         Box(
                             Modifier
                                 .fillMaxWidth()
