@@ -29,11 +29,11 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.statement.readRawBytes
-import java.io.InputStream
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import java.io.InputStream
 
 @SuppressLint("RestrictedApi")
 @Composable
@@ -62,6 +62,7 @@ fun RemoteComposeScreen(
                     parameter("width", configuration.screenWidthDp)
                     parameter("height", configuration.screenHeightDp)
                     parameter("density", density.density)
+                    parameter("fontScale", density.fontScale)
                 }
             bytes = response.readRawBytes()
         } catch (e: Exception) {
