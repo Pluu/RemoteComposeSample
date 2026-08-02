@@ -88,11 +88,9 @@ fun RemoteComposeScreen(
 
             val bitmapLoader =
                 remember(client) {
-                    object : BitmapLoader {
-                        override fun loadBitmap(url: String): InputStream {
-                            return runBlocking {
-                                client.get(url).body<InputStream>()
-                            }
+                    BitmapLoader { url ->
+                        runBlocking {
+                            client.get(url).body<InputStream>()
                         }
                     }
                 }
