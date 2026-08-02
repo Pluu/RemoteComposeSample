@@ -7,6 +7,7 @@ import io.ktor.server.application.ApplicationCall
 fun getHeaderTags(
     call: ApplicationCall,
     groupId: Int = 0,
+    title: String = "",
 ): Array<HTag> {
     val width = call.request.queryParameters["width"]?.toIntOrNull() ?: 400
     val height = call.request.queryParameters["height"]?.toIntOrNull() ?: 800
@@ -19,6 +20,7 @@ fun getHeaderTags(
         HTag(Header.DOC_DENSITY_AT_GENERATION, density),
         HTag(Header.DOC_DENSITY_BEHAVIOR, 1), // 1: PIXELS behavior (we scale on server)
         HTag(Header.DOC_SOURCE, groupId),
+        HTag(Header.DOC_CONTENT_DESCRIPTION, title),
     )
 }
 

@@ -47,6 +47,7 @@ fun RemoteComposeScreen(
     onOpenUrl: (String) -> Unit,
     onShowToast: (String) -> Unit,
     onGroupIdReceived: (Int) -> Unit = {},
+    onTitleReceived: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var bytes by remember(path) { mutableStateOf<ByteArray?>(null) }
@@ -92,6 +93,9 @@ fun RemoteComposeScreen(
             LaunchedEffect(remoteDocument) {
                 val groupId = remoteDocument.document.featureIntValue(Header.DOC_SOURCE)
                 onGroupIdReceived(if (groupId == -1) 0 else groupId)
+
+                val title = remoteDocument.document.contentDescription ?: ""
+                onTitleReceived(title)
             }
 
             val bitmapLoader =

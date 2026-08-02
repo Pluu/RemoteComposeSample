@@ -34,7 +34,7 @@ fun Route.docRoutes(rcProfile: RcProfile) {
             val bytes =
                 createRcBuffer(
                     profile = rcProfile,
-                    tags = getHeaderTags(call, groupId = 1),
+                    tags = getHeaderTags(call, groupId = 1, title = "$name Sample"),
                     densityScope = ds,
                 ) { densityScope ->
                     // 순수 컨텐츠 영역만 렌더링 (헤더 제거)

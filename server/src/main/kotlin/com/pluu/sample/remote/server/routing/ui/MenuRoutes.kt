@@ -1,7 +1,6 @@
 package com.pluu.sample.remote.server.routing.ui
 
 import androidx.compose.remote.creation.dsl.Modifier
-import androidx.compose.remote.creation.dsl.RcFontWeight
 import androidx.compose.remote.creation.dsl.RcHorizontalPositioning
 import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.dsl.RcVerticalPositioning
@@ -25,16 +24,10 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
         val bytes =
             createRcBuffer(
                 profile = rcProfile,
-                tags = getHeaderTags(call),
+                tags = getHeaderTags(call, title = "Remote Compose Sample"),
                 densityScope = ds,
             ) { densityScope ->
                 Column(Modifier.fillMaxSize().padding(16.dp(densityScope))) {
-                    Text(
-                        text = "Remote Compose Sample",
-                        fontSize = 32.sp(densityScope),
-                        fontWeight = RcFontWeight.Bold,
-                    )
-
                     listOf(
                         "API" to "/ui/api_list",
                         "Custom" to "/ui/custom_list",

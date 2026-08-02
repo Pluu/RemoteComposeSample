@@ -1,14 +1,8 @@
 package com.pluu.sample.remote.server.routing.ui
 
 import androidx.compose.remote.creation.dsl.Modifier
-import androidx.compose.remote.creation.dsl.RcFontWeight
 import androidx.compose.remote.creation.dsl.RcProfile
-import androidx.compose.remote.creation.dsl.RcRowHorizontalPositioning
-import androidx.compose.remote.creation.dsl.RcVerticalPositioning
 import androidx.compose.remote.creation.dsl.fillMaxSize
-import androidx.compose.remote.creation.dsl.fillMaxWidth
-import androidx.compose.remote.creation.dsl.heightIn
-import androidx.compose.remote.creation.dsl.onClick
 import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.rsp
 import com.pluu.sample.remote.server.utils.createRcBuffer
@@ -23,31 +17,10 @@ fun Route.classicListUiRoutes(rcProfile: RcProfile) {
         val bytes =
             createRcBuffer(
                 profile = rcProfile,
-                tags = getHeaderTags(call),
+                tags = getHeaderTags(call, title = "Classic Samples"),
                 densityScope = call.toDensityScope(),
             ) {
                 Column(Modifier.fillMaxSize().padding(16f)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 48f),
-                        horizontal = RcRowHorizontalPositioning.Start,
-                        vertical = RcVerticalPositioning.Center,
-                    ) {
-                        Box(
-                            modifier =
-                                Modifier
-                                    .padding(end = 8f)
-                                    .onClick {
-                                        hostAction("back")
-                                    },
-                        ) {
-                            Text(text = "←", fontSize = 24.rsp)
-                        }
-                        Text(
-                            text = "Classic Samples",
-                            fontSize = 24.rsp,
-                            fontWeight = RcFontWeight.Bold,
-                        )
-                    }
                     Text("Coming Soon...", fontSize = 16.rsp)
                 }
             }
