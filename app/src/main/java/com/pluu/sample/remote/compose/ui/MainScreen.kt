@@ -13,7 +13,11 @@ import androidx.core.net.toUri
 import io.ktor.client.HttpClient
 
 @Composable
-fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
+@Suppress("FunctionName")
+fun MainScreen(
+    client: HttpClient,
+    modifier: Modifier = Modifier,
+) {
     val navigationStack = remember { mutableStateListOf("/ui/menu") }
     val currentPath = navigationStack.last()
     val context = LocalContext.current
@@ -44,6 +48,6 @@ fun MainScreen(client: HttpClient, modifier: Modifier = Modifier) {
         onShowToast = { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         },
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     )
 }
