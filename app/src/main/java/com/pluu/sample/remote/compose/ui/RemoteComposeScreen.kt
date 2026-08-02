@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.remote.player.compose.impl.RemoteComposePlayer
 import androidx.compose.remote.player.core.RemoteDocument
 import androidx.compose.remote.core.CoreDocument
+import androidx.compose.remote.player.core.state.StateUpdater
 import com.pluu.sample.remote.compose.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -73,13 +74,19 @@ fun RemoteComposeScreen(
             Text(
                 text = "Error: $errorMessage",
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.align(Alignment.Center).padding(16.dp)
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(16.dp)
             )
         } else if (bytes != null) {
             val remoteDocument = remember(bytes) { RemoteDocument(bytes!!) }
-            
+
             DisposableEffect(remoteDocument) {
-                val listener = CoreDocument.IdActionCallback { _, metadata ->
+                val listener = CoreDocument.IdActionCallback { id, metadata ->
+                    android.util.Log.d(
+                        "RemoteCompose",
+                        "Action received: id=$id, metadata=$metadata"
+                    )
                     metadata?.let {
                         handleAction(it, onNavigate, onBack, onOpenUrl, onShowToast)
                     }
@@ -92,7 +99,10 @@ fun RemoteComposeScreen(
 
             RemoteComposePlayer(
                 document = remoteDocument,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                onNamedAction = { name, _, _ ->
+                    handleAction(name, onNavigate, onBack, onOpenUrl, onShowToast)
+                }
             )
         }
     }
@@ -105,6 +115,11 @@ private fun handleAction(
     onOpenUrl: (String) -> Unit,
     onShowToast: (String) -> Unit
 ) {
+    if (metadata == "back") {
+        onBack()
+        return
+    }
+
     try {
         val json = Json.parseToJsonElement(metadata).jsonObject
         when (json["action"]?.jsonPrimitive?.content) {
@@ -112,17 +127,22 @@ private fun handleAction(
                 val url = json["url"]?.jsonPrimitive?.content
                 if (url != null) onNavigate(url)
             }
+
             "back" -> onBack()
             "open" -> {
                 val url = json["url"]?.jsonPrimitive?.content
                 if (url != null) onOpenUrl(url)
             }
+
             "toast" -> {
                 val message = json["message"]?.jsonPrimitive?.content
                 if (message != null) onShowToast(message)
             }
         }
     } catch (e: Exception) {
-        // Ignore parsing errors
+        // If it's not valid JSON, it might be a direct URL/path
+        if (metadata.startsWith("/")) {
+            onNavigate(metadata)
+        }
     }
 }
