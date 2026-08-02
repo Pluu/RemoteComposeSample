@@ -7,6 +7,7 @@ import androidx.compose.remote.creation.dsl.RcPaintStyle
 import androidx.compose.remote.creation.dsl.RcScope
 import androidx.compose.remote.creation.dsl.RcVerticalPositioning
 import androidx.compose.remote.creation.dsl.background
+import androidx.compose.remote.creation.dsl.fillMaxSize
 import androidx.compose.remote.creation.dsl.fillMaxWidth
 import androidx.compose.remote.creation.dsl.graphicsLayer
 import androidx.compose.remote.creation.dsl.height
@@ -21,8 +22,8 @@ import androidx.compose.remote.creation.dsl.size
 fun RcScope.renderSampleContent(name: String) {
     Column(
         Modifier
-            .fillMaxWidth()
-            .padding(top = 16f),
+            .fillMaxSize()
+            .padding(16f),
     ) {
         when (name) {
             "Text" -> {

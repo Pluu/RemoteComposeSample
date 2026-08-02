@@ -7,7 +7,6 @@ import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.profile.Profile
 import com.pluu.sample.remote.server.routing.api.apiListRoutes
 import com.pluu.sample.remote.server.routing.api.docRoutes
-import com.pluu.sample.remote.server.routing.ui.apiListUiRoutes
 import com.pluu.sample.remote.server.routing.ui.classicListUiRoutes
 import com.pluu.sample.remote.server.routing.ui.customListUiRoutes
 import com.pluu.sample.remote.server.routing.ui.menuRoutes
@@ -43,7 +42,6 @@ fun main() {
             apiListRoutes()
             docRoutes(rcProfile)
             menuRoutes(rcProfile)
-            apiListUiRoutes(rcProfile)
             customListUiRoutes(rcProfile)
             classicListUiRoutes(rcProfile)
         }
