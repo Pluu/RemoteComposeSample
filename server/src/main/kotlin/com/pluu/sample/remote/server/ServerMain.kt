@@ -1,5 +1,6 @@
 package com.pluu.sample.remote.server
 
+import androidx.compose.remote.core.CoreDocument
 import androidx.compose.remote.core.RcProfiles
 import androidx.compose.remote.creation.JvmRcPlatformServices
 import androidx.compose.remote.creation.RemoteComposeWriter
@@ -21,7 +22,7 @@ import kotlinx.serialization.json.Json
 fun main() {
     val profile =
         Profile(
-            7,
+            CoreDocument.DOCUMENT_API_LEVEL,
             RcProfiles.PROFILE_ANDROIDX,
             JvmRcPlatformServices(),
         ) { displayInfo, p, callback ->
