@@ -4,7 +4,10 @@ import androidx.compose.remote.core.operations.Header
 import androidx.compose.remote.creation.RemoteComposeWriter.HTag
 import io.ktor.server.application.ApplicationCall
 
-fun getHeaderTags(call: ApplicationCall): Array<HTag> {
+fun getHeaderTags(
+    call: ApplicationCall,
+    groupId: Int = 0,
+): Array<HTag> {
     val width = call.request.queryParameters["width"]?.toIntOrNull() ?: 400
     val height = call.request.queryParameters["height"]?.toIntOrNull() ?: 800
     val density = call.request.queryParameters["density"]?.toFloatOrNull() ?: 1f
@@ -15,6 +18,7 @@ fun getHeaderTags(call: ApplicationCall): Array<HTag> {
         HTag(Header.DOC_HEIGHT, (height * density).toInt()),
         HTag(Header.DOC_DENSITY_AT_GENERATION, density),
         HTag(Header.DOC_DENSITY_BEHAVIOR, 1), // 1: PIXELS behavior (we scale on server)
+        HTag(Header.DOC_SOURCE, groupId),
     )
 }
 

@@ -8,6 +8,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.remote.core.CoreDocument
+import androidx.compose.remote.core.operations.Header
 import androidx.compose.remote.player.compose.impl.RemoteComposePlayer
 import androidx.compose.remote.player.core.RemoteDocument
 import androidx.compose.remote.player.core.platform.BitmapLoader
@@ -45,6 +46,7 @@ fun RemoteComposeScreen(
     onBack: () -> Unit,
     onOpenUrl: (String) -> Unit,
     onShowToast: (String) -> Unit,
+    onGroupIdReceived: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     var bytes by remember(path) { mutableStateOf<ByteArray?>(null) }
@@ -86,6 +88,11 @@ fun RemoteComposeScreen(
             )
         } else if (bytes != null) {
             val remoteDocument = remember(bytes) { RemoteDocument(bytes!!) }
+
+            LaunchedEffect(remoteDocument) {
+                val groupId = remoteDocument.document.featureIntValue(Header.DOC_SOURCE)
+                onGroupIdReceived(if (groupId == -1) 0 else groupId)
+            }
 
             val bitmapLoader =
                 remember(client) {

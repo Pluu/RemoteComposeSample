@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ fun MainScreen(
     val context = LocalContext.current
 
     var apiResponse by remember { mutableStateOf<ApiResponse?>(null) }
+    var currentGroupId by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(Unit) {
         try {
@@ -58,9 +60,9 @@ fun MainScreen(
     }
 
     Column(modifier = modifier.fillMaxSize()) {
-        // API Sample 섹션인 경우 Native Tab 표시
+        // groupId가 1인 경우 (API Sample 그룹) Native Tab 표시
         val apiItems = apiResponse?.api?.sample ?: emptyList()
-        val isApiSection = currentPath.startsWith("/api/doc/") || currentPath == "/ui/api_list"
+        val isApiSection = currentGroupId == 1
 
         if (isApiSection && apiItems.isNotEmpty()) {
             val selectedIndex = apiItems.indexOfFirst { it.path == currentPath }.coerceAtLeast(0)
@@ -75,8 +77,8 @@ fun MainScreen(
                         selected = selectedIndex == index,
                         onClick = {
                             if (currentPath != item.path) {
-                                // 기존 API 경로가 있으면 교체, 아니면 추가
-                                if (currentPath.startsWith("/api/doc/")) {
+                                // 기존 동일 그룹 내 경로면 교체, 아니면 추가
+                                if (currentGroupId == 1) {
                                     navigationStack[navigationStack.size - 1] = item.path
                                 } else {
                                     navigationStack.add(item.path)
@@ -104,6 +106,9 @@ fun MainScreen(
             },
             onShowToast = { message ->
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            },
+            onGroupIdReceived = { groupId ->
+                currentGroupId = groupId
             },
             modifier = Modifier.weight(1f),
         )
