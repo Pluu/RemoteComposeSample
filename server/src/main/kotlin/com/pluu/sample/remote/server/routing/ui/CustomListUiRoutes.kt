@@ -4,7 +4,6 @@ import androidx.compose.remote.creation.dsl.Modifier
 import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.dsl.fillMaxSize
 import androidx.compose.remote.creation.dsl.padding
-import androidx.compose.remote.creation.dsl.rsp
 import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.getHeaderTags
 import com.pluu.sample.remote.server.utils.sp
