@@ -9,6 +9,7 @@ import androidx.compose.remote.creation.dsl.fillMaxWidth
 import androidx.compose.remote.creation.dsl.heightIn
 import androidx.compose.remote.creation.dsl.onClick
 import androidx.compose.remote.creation.dsl.padding
+import androidx.compose.remote.creation.dsl.ripple
 import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.dp
 import com.pluu.sample.remote.server.utils.getHeaderTags
@@ -38,6 +39,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                                 Modifier
                                     .fillMaxWidth()
                                     .heightIn(min = 32.dp(densityScope), max = 64.dp(densityScope))
+                                    .ripple()
                                     .onClick {
                                         hostAction("{\"action\":\"navigate\",\"url\":\"$path\"}")
                                     },
