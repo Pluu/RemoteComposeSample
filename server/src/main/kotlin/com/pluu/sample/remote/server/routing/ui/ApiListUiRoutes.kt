@@ -25,14 +25,15 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                     Row(
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48f),
                         horizontal = RcRowHorizontalPositioning.Start,
-                        vertical = RcVerticalPositioning.Center
+                        vertical = RcVerticalPositioning.Center,
                     ) {
                         Box(
-                            modifier = Modifier
-                                .padding(end = 8f)
-                                .onClick {
-                                    hostAction("back")
-                                }
+                            modifier =
+                                Modifier
+                                    .padding(end = 8f)
+                                    .onClick {
+                                        hostAction("back")
+                                    },
                         ) {
                             Text(text = "←", fontSize = 24.rsp)
                         }

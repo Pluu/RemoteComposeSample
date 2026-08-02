@@ -23,28 +23,29 @@ fun Route.docRoutes(rcProfile: RcProfile) {
         get("/api/doc/$name") {
             val bytes =
                 createRcBuffer(rcProfile, *getHeaderTags(call)) {
-                Column(Modifier.fillMaxSize().padding(16f)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 48f),
-                        horizontal = RcRowHorizontalPositioning.Start,
-                        vertical = RcVerticalPositioning.Center
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .padding(end = 8f)
-                                .onClick {
-                                    hostAction("back")
-                                }
+                    Column(Modifier.fillMaxSize().padding(16f)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48f),
+                            horizontal = RcRowHorizontalPositioning.Start,
+                            vertical = RcVerticalPositioning.Center,
                         ) {
-                            Text(text = "←", fontSize = 24.rsp)
+                            Box(
+                                modifier =
+                                    Modifier
+                                        .padding(end = 8f)
+                                        .onClick {
+                                            hostAction("back")
+                                        },
+                            ) {
+                                Text(text = "←", fontSize = 24.rsp)
+                            }
+                            Text(
+                                text = "Sample for $name",
+                                fontSize = 20.rsp,
+                                fontWeight = RcFontWeight.Medium,
+                            )
                         }
-                        Text(
-                            text = "Sample for $name",
-                            fontSize = 20.rsp,
-                            fontWeight = RcFontWeight.Medium,
-                        )
                     }
-                }
                 }
             call.respondBytes(bytes)
         }

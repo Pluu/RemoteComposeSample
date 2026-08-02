@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.remotecompose.player.view)
     implementation(libs.remotecompose.player.compose)
     implementation(libs.remotecompose.player.core)
-    
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
