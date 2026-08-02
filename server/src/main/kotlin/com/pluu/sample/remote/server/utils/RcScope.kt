@@ -9,8 +9,10 @@ fun createRcBuffer(
     profile: RcProfile,
     vararg tags: HTag,
     densityScope: DensityScope,
-    content: RcScope.(DensityScope) -> Unit,
+    content: context(DensityScope) RcScope.() -> Unit,
 ): ByteArray =
     createRcBuffer(profile, *tags) {
-        content(densityScope)
+        context(densityScope) {
+            content()
+        }
     }

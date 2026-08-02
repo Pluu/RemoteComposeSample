@@ -7,6 +7,7 @@ import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.rsp
 import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.getHeaderTags
+import com.pluu.sample.remote.server.utils.sp
 import com.pluu.sample.remote.server.utils.toDensityScope
 import io.ktor.server.response.respondBytes
 import io.ktor.server.routing.Route
@@ -21,7 +22,7 @@ fun Route.customListUiRoutes(rcProfile: RcProfile) {
                 densityScope = call.toDensityScope(),
             ) {
                 Column(Modifier.fillMaxSize().padding(16f)) {
-                    Text("Coming Soon...", fontSize = 16.rsp)
+                    Text("Coming Soon...", fontSize = 16.sp)
                 }
             }
         call.respondBytes(bytes)

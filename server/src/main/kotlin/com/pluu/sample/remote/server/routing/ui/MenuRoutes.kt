@@ -27,8 +27,8 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                 profile = rcProfile,
                 tags = getHeaderTags(call, title = "Remote Compose Sample"),
                 densityScope = ds,
-            ) { densityScope ->
-                Column(Modifier.fillMaxSize().padding(16.dp(densityScope))) {
+            ) {
+                Column(Modifier.fillMaxSize().padding(16.dp)) {
                     listOf(
                         "API" to "/ui/api_list",
                         "Custom" to "/ui/custom_list",
@@ -38,7 +38,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
-                                    .heightIn(min = 32.dp(densityScope), max = 64.dp(densityScope))
+                                    .heightIn(min = 32.dp, max = 64.dp)
                                     .ripple()
                                     .onClick {
                                         hostAction("{\"action\":\"navigate\",\"url\":\"$path\"}")
@@ -48,7 +48,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                         ) {
                             Text(
                                 text = name,
-                                fontSize = 24.sp(densityScope),
+                                fontSize = 24.sp,
                             )
                         }
                     }
