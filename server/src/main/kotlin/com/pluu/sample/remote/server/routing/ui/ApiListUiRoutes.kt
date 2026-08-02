@@ -19,6 +19,39 @@ import io.ktor.server.routing.get
 
 fun Route.apiListUiRoutes(rcProfile: RcProfile) {
     get("/ui/api_list") {
+        val samples =
+            listOf(
+                "Modifier" to "/api/doc/Modifier",
+                "RcScope" to "/api/doc/RcScope",
+                "RcTypes" to "/api/doc/RcTypes",
+                "Layout" to "/api/doc/Layout",
+                "DrawScope" to "/api/doc/DrawScope",
+                "Text" to "/api/doc/Text",
+                "Button" to "/api/doc/Button",
+                "Image" to "/api/doc/Image",
+                "Icon" to "/api/doc/Icon",
+                "Checkbox" to "/api/doc/Checkbox",
+                "Switch" to "/api/doc/Switch",
+                "RcDrawing" to "/api/doc/RcDrawing",
+                "RcInteractivity" to "/api/doc/RcInteractivity",
+                "Animation" to "/api/doc/Animation",
+                "Gestures" to "/api/doc/Gestures",
+            )
+
+        val tabGroups =
+            mapOf(
+                "Core" to listOf("Modifier", "RcScope", "RcTypes", "Layout", "DrawScope"),
+                "Components" to listOf("Text", "Button", "Image", "Icon", "Checkbox", "Switch"),
+                "Advanced" to listOf("RcDrawing", "RcInteractivity", "Animation", "Gestures"),
+            )
+
+        val currentTab = call.parameters["tab"] ?: tabGroups.keys.first()
+
+        val filteredSamples =
+            samples.filter { (name, _) ->
+                tabGroups[currentTab]?.contains(name) == true
+            }
+
         val bytes =
             createRcBuffer(rcProfile, *getHeaderTags(call)) {
                 Column(Modifier.fillMaxSize().padding(16f)) {
@@ -44,13 +77,31 @@ fun Route.apiListUiRoutes(rcProfile: RcProfile) {
                         )
                     }
 
-                    listOf(
-                        "Modifier" to "/api/doc/Modifier",
-                        "RcDrawing" to "/api/doc/RcDrawing",
-                        "RcInteractivity" to "/api/doc/RcInteractivity",
-                        "RcScope" to "/api/doc/RcScope",
-                        "RcTypes" to "/api/doc/RcTypes",
-                    ).forEach { (name, path) ->
+                    // Tab Bar
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(top = 16f, bottom = 16f),
+                        horizontal = RcRowHorizontalPositioning.Start,
+                    ) {
+                        tabGroups.keys.forEach { tab ->
+                            val isSelected = tab == currentTab
+                            Box(
+                                modifier =
+                                    Modifier
+                                        .padding(end = 12f)
+                                        .onClick {
+                                            hostAction("/ui/api_list?tab=$tab")
+                                        },
+                            ) {
+                                Text(
+                                    text = if (isSelected) "● $tab" else tab,
+                                    fontSize = 18.rsp,
+                                    fontWeight = if (isSelected) RcFontWeight.Bold else RcFontWeight.Normal,
+                                )
+                            }
+                        }
+                    }
+
+                    filteredSamples.forEach { (name, path) ->
                         Box(
                             Modifier
                                 .fillMaxWidth()

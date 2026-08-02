@@ -19,7 +19,23 @@ import io.ktor.server.routing.get
 
 fun Route.docRoutes(rcProfile: RcProfile) {
     // Dummy endpoints for the docs
-    listOf("Modifier", "RcDrawing", "RcInteractivity", "RcScope", "RcTypes").forEach { name ->
+    listOf(
+        "Modifier",
+        "RcScope",
+        "RcTypes",
+        "Layout",
+        "DrawScope",
+        "Text",
+        "Button",
+        "Image",
+        "Icon",
+        "Checkbox",
+        "Switch",
+        "RcDrawing",
+        "RcInteractivity",
+        "Animation",
+        "Gestures",
+    ).forEach { name ->
         get("/api/doc/$name") {
             val bytes =
                 createRcBuffer(rcProfile, *getHeaderTags(call)) {
