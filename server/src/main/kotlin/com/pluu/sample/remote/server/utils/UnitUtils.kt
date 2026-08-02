@@ -1,5 +1,6 @@
 package com.pluu.sample.remote.server.utils
 
+import androidx.compose.remote.creation.dsl.RcFloat
 import androidx.compose.remote.creation.dsl.RcSp
 import androidx.compose.remote.creation.dsl.rsp
 
@@ -8,10 +9,18 @@ class DensityScope(
     val fontScale: Float,
 )
 
-fun Int.dp(ds: DensityScope): Float = this * ds.density
+context(scope: DensityScope)
+val Int.dp: Float
+    get() = this * scope.density
 
-fun Float.dp(ds: DensityScope): Float = this * ds.density
+context(scope: DensityScope)
+val Float.dp: Float
+    get() = this * scope.density
 
-fun Int.sp(ds: DensityScope): RcSp = (this * ds.density * ds.fontScale).rsp
+context(scope: DensityScope)
+val Int.sp: RcSp
+    get() = (this * scope.density).rsp
 
-fun Float.sp(ds: DensityScope): RcSp = (this * ds.density * ds.fontScale).rsp
+context(scope: DensityScope)
+val Float.sp: RcSp
+    get() = (this * scope.density).rsp

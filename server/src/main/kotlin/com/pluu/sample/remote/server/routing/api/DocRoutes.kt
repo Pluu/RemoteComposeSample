@@ -2,6 +2,7 @@ package com.pluu.sample.remote.server.routing.api
 
 import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.dsl.createRcBuffer
+import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.getHeaderTags
 import com.pluu.sample.remote.server.utils.toDensityScope
 import io.ktor.server.response.respondBytes
@@ -30,12 +31,14 @@ fun Route.docRoutes(rcProfile: RcProfile) {
 
     allSamples.forEach { name ->
         get("/api/doc/$name") {
-            val densityScope = call.toDensityScope()
-            val bytes =
-                createRcBuffer(rcProfile, *getHeaderTags(call)) {
-                    // 순수 컨텐츠 영역만 렌더링 (헤더 제거)
-                    renderSampleContent(name, densityScope)
-                }
+            val bytes = createRcBuffer(
+                profile = rcProfile,
+                tags = getHeaderTags(call),
+                densityScope = call.toDensityScope()
+            ) {
+                // 순수 컨텐츠 영역만 렌더링 (헤더 제거)
+                renderSampleContent(name)
+            }
             call.respondBytes(bytes)
         }
     }

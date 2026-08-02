@@ -20,20 +20,20 @@ import com.pluu.sample.remote.server.utils.DensityScope
 import com.pluu.sample.remote.server.utils.dp
 import com.pluu.sample.remote.server.utils.sp
 
+context(densityScope: DensityScope)
 fun RcScope.renderSampleContent(
-    name: String,
-    ds: DensityScope,
-) {
+    name: String
+) = context(densityScope) {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(16.dp(ds)),
+            .padding(16.dp),
     ) {
         when (name) {
             "Text" -> {
-                Text("Normal Text", fontSize = 16.sp(ds))
-                Text("Bold Text", fontSize = 20.sp(ds), fontWeight = RcFontWeight.Bold)
-                Text("Large Text", fontSize = 32.sp(ds))
+                Text("Normal Text", fontSize = 16.sp)
+                Text("Bold Text", fontSize = 20.sp, fontWeight = RcFontWeight.Bold)
+                Text("Large Text", fontSize = 32.sp)
                 Text("Custom Color", color = 0xFFFF0000.toInt())
             }
 
@@ -42,7 +42,7 @@ fun RcScope.renderSampleContent(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .height(48.dp(ds))
+                            .height(48.dp)
                             .background(0xFF6200EE)
                             .onClick {
                                 hostAction("{\"action\":\"toast\",\"message\":\"Button Clicked!\"}")
@@ -55,25 +55,28 @@ fun RcScope.renderSampleContent(
             }
 
             "Modifier" -> {
-                Box(Modifier.size(100.dp(ds)).background(0xFFFF0000.toInt()))
-                Box(Modifier.padding(top = 10.dp(ds)).size(100.dp(ds)).background(0xFF00FF00.toInt()))
+                Box(Modifier.size(100.dp).background(0xFFFF0000.toInt()))
+                Box(
+                    Modifier.padding(top = 10.dp).size(100.dp)
+                        .background(0xFF00FF00.toInt())
+                )
                 Box(
                     Modifier
-                        .padding(top = 10.dp(ds))
+                        .padding(top = 10.dp)
                         .fillMaxWidth()
-                        .height(50.dp(ds))
+                        .height(50.dp)
                         .background(0xFF0000FF.toInt()),
                 )
             }
 
             "Layout" -> {
                 Text("Column", fontWeight = RcFontWeight.Bold)
-                Column(Modifier.background(0xFFEEEEEE.toInt()).padding(8.dp(ds))) {
+                Column(Modifier.background(0xFFEEEEEE.toInt()).padding(8.dp)) {
                     Text("Item 1")
                     Text("Item 2")
                 }
-                Text("Row", Modifier.padding(top = 16.dp(ds)), fontWeight = RcFontWeight.Bold)
-                Row(Modifier.background(0xFFDDDDDD.toInt()).padding(8.dp(ds))) {
+                Text("Row", Modifier.padding(top = 16.dp), fontWeight = RcFontWeight.Bold)
+                Row(Modifier.background(0xFFDDDDDD.toInt()).padding(8.dp)) {
                     Text("Left ")
                     Text("Right")
                 }
@@ -86,7 +89,7 @@ fun RcScope.renderSampleContent(
                         remoteBitmapUrl(
                             "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png",
                         ),
-                    modifier = Modifier.size(200.dp(ds)),
+                    modifier = Modifier.size(200.dp),
                 )
             }
 
@@ -95,13 +98,13 @@ fun RcScope.renderSampleContent(
                     Box(
                         modifier =
                             Modifier
-                                .size(24.dp(ds))
+                                .size(24.dp)
                                 .background(0xFFCCCCCC.toInt())
                                 .onClick {
                                     hostAction("{\"action\":\"toast\",\"message\":\"Toggled!\"}")
                                 },
                     )
-                    Text("  Toggle Component Sample", Modifier.padding(start = 8.dp(ds)))
+                    Text("  Toggle Component Sample", Modifier.padding(start = 8.dp))
                 }
             }
 
@@ -110,12 +113,12 @@ fun RcScope.renderSampleContent(
                     Box(
                         Modifier
                             .fillMaxWidth()
-                            .height(100.dp(ds))
+                            .height(100.dp)
                             .background(0xFFEEEEEE.toInt()),
                         vertical = RcVerticalPositioning.Center,
                         horizontal = RcHorizontalPositioning.Center,
                     ) {
-                        Text("Inside Global and Box nesting", fontSize = 18.sp(ds))
+                        Text("Inside Global and Box nesting", fontSize = 18.sp)
                     }
                 }
             }
@@ -128,38 +131,38 @@ fun RcScope.renderSampleContent(
                 Text("Remote Float: " + f.format(1, 4))
                 Row(vertical = RcVerticalPositioning.Center) {
                     Text("Remote Color: ")
-                    Box(Modifier.size(24.dp(ds)).background(c))
+                    Box(Modifier.size(24.dp).background(c))
                 }
             }
 
             "DrawScope", "RcDrawing" -> {
                 Text("Canvas Drawing Example", fontWeight = RcFontWeight.Bold)
-                Canvas(Modifier.size(200.dp(ds)).background(0xFFF0F0F0.toInt())) {
+                Canvas(Modifier.size(200.dp).background(0xFFF0F0F0.toInt())) {
                     paint {
                         color(0xFFFF0000.toInt())
                     }
-                    drawRect(10.dp(ds), 10.dp(ds), 90.dp(ds), 90.dp(ds))
+                    drawRect(10.dp, 10.dp, 90.dp, 90.dp)
 
                     paint {
                         color(0xFF0000FF.toInt())
                     }
-                    drawCircle(150.dp(ds), 150.dp(ds), 40.dp(ds))
+                    drawCircle(150.dp, 150.dp, 40.dp)
 
                     paint {
                         color(0xFF00FF00.toInt())
-                        strokeWidth(5.dp(ds))
+                        strokeWidth(5.dp)
                         style(RcPaintStyle.Stroke)
                     }
-                    drawLine(10.dp(ds), 150.dp(ds), 100.dp(ds), 190.dp(ds))
+                    drawLine(10.dp, 150.dp, 100.dp, 190.dp)
                 }
             }
 
             "RcInteractivity", "Gestures" -> {
-                Column(Modifier.fillMaxWidth().padding(8.dp(ds))) {
+                Column(Modifier.fillMaxWidth().padding(8.dp)) {
                     Box(
                         Modifier
                             .fillMaxWidth()
-                            .height(60.dp(ds))
+                            .height(60.dp)
                             .background(0xFFE0E0E0.toInt())
                             .onClick {
                                 hostAction("{\"action\":\"toast\",\"message\":\"Single Click!\"}")
@@ -172,9 +175,9 @@ fun RcScope.renderSampleContent(
 
                     Box(
                         Modifier
-                            .padding(top = 8.dp(ds))
+                            .padding(top = 8.dp)
                             .fillMaxWidth()
-                            .height(60.dp(ds))
+                            .height(60.dp)
                             .background(0xFFD0D0D0.toInt())
                             .onLongClick {
                                 hostAction("{\"action\":\"toast\",\"message\":\"Long Click!\"}")
@@ -187,9 +190,9 @@ fun RcScope.renderSampleContent(
 
                     Box(
                         Modifier
-                            .padding(top = 8.dp(ds))
+                            .padding(top = 8.dp)
                             .fillMaxWidth()
-                            .height(60.dp(ds))
+                            .height(60.dp)
                             .background(0xFFC0C0C0.toInt())
                             .onDoubleClick {
                                 hostAction("{\"action\":\"toast\",\"message\":\"Double Click!\"}")
@@ -207,8 +210,8 @@ fun RcScope.renderSampleContent(
                 Text("Animation using animationTime()")
                 Box(
                     Modifier
-                        .padding(top = 16.dp(ds))
-                        .size(100.dp(ds))
+                        .padding(top = 16.dp)
+                        .size(100.dp)
                         .graphicsLayer {
                             rotationZ(time * 45f) // Rotate 45 degrees per second
                         }.background(0xFF6200EE.toInt()),
@@ -216,7 +219,7 @@ fun RcScope.renderSampleContent(
             }
 
             else -> {
-                Text("Detail implementation for $name coming soon...", fontSize = 16.sp(ds))
+                Text("Detail implementation for $name coming soon...", fontSize = 16.sp)
             }
         }
     }
