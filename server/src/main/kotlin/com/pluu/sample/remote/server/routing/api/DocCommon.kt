@@ -80,7 +80,7 @@ fun RcScope.renderSampleContent(name: String) {
                 Image(
                     image =
                         remoteBitmapUrl(
-                            "https://raw.githubusercontent.com/pluu/RemoteComposeSample/master/doc/img/sample.png",
+                            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/500px-Google_%22G%22_logo.svg.png",
                         ),
                     modifier = Modifier.size(200.rdp),
                 )

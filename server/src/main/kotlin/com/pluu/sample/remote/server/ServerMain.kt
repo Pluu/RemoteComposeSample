@@ -39,9 +39,9 @@ fun main() {
             )
         }
         routing {
+            menuRoutes(rcProfile)
             apiListRoutes()
             docRoutes(rcProfile)
-            menuRoutes(rcProfile)
             customListUiRoutes(rcProfile)
             classicListUiRoutes(rcProfile)
         }
