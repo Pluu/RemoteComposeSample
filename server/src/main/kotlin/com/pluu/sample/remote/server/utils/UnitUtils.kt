@@ -17,9 +17,9 @@ val Float.dp: Float
     get() = this * ds.density
 
 context(ds: DensityScope)
-val Int.sp: RcSp
+val Int.rsp: RcSp
     get() = (this * ds.density * ds.fontScale).rsp
 
 context(ds: DensityScope)
-val Float.sp: RcSp
+val Float.rsp: RcSp
     get() = (this * ds.density * ds.fontScale).rsp

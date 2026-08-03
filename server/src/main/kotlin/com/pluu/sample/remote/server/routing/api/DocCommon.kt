@@ -18,7 +18,7 @@ import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.size
 import com.pluu.sample.remote.server.utils.DensityScope
 import com.pluu.sample.remote.server.utils.dp
-import com.pluu.sample.remote.server.utils.sp
+import com.pluu.sample.remote.server.utils.rsp
 
 context(ds: DensityScope)
 fun RcScope.renderSampleContent(name: String) {
@@ -29,9 +29,9 @@ fun RcScope.renderSampleContent(name: String) {
     ) {
         when (name) {
             "Text" -> {
-                Text("Normal Text", fontSize = 16.sp)
-                Text("Bold Text", fontSize = 20.sp, fontWeight = RcFontWeight.Bold)
-                Text("Large Text", fontSize = 32.sp)
+                Text("Normal Text", fontSize = 16.rsp)
+                Text("Bold Text", fontSize = 20.rsp, fontWeight = RcFontWeight.Bold)
+                Text("Large Text", fontSize = 32.rsp)
                 Text("Custom Color", color = 0xFFFF0000.toInt())
             }
 
@@ -116,7 +116,7 @@ fun RcScope.renderSampleContent(name: String) {
                         vertical = RcVerticalPositioning.Center,
                         horizontal = RcHorizontalPositioning.Center,
                     ) {
-                        Text("Inside Global and Box nesting", fontSize = 18.sp)
+                        Text("Inside Global and Box nesting", fontSize = 18.rsp)
                     }
                 }
             }
@@ -217,7 +217,7 @@ fun RcScope.renderSampleContent(name: String) {
             }
 
             else -> {
-                Text("Detail implementation for $name coming soon...", fontSize = 16.sp)
+                Text("Detail implementation for $name coming soon...", fontSize = 16.rsp)
             }
         }
     }

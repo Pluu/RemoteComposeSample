@@ -6,14 +6,13 @@ import androidx.compose.remote.creation.dsl.RcProfile
 import androidx.compose.remote.creation.dsl.RcVerticalPositioning
 import androidx.compose.remote.creation.dsl.fillMaxSize
 import androidx.compose.remote.creation.dsl.fillMaxWidth
-import androidx.compose.remote.creation.dsl.heightIn
 import androidx.compose.remote.creation.dsl.onClick
 import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.ripple
 import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.dp
 import com.pluu.sample.remote.server.utils.getHeaderTags
-import com.pluu.sample.remote.server.utils.sp
+import com.pluu.sample.remote.server.utils.rsp
 import com.pluu.sample.remote.server.utils.toDensityScope
 import io.ktor.server.response.respondBytes
 import io.ktor.server.routing.Route
@@ -48,7 +47,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                         ) {
                             Text(
                                 text = name,
-                                fontSize = 24.sp,
+                                fontSize = 24.rsp,
                             )
                         }
                     }
