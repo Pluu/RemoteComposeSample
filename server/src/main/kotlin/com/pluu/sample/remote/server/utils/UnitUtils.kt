@@ -9,11 +9,11 @@ class DensityScope(
 )
 
 context(ds: DensityScope)
-val Int.dp: Float
+val Int.rdp: Float
     get() = this * ds.density
 
 context(ds: DensityScope)
-val Float.dp: Float
+val Float.rdp: Float
     get() = this * ds.density
 
 context(ds: DensityScope)

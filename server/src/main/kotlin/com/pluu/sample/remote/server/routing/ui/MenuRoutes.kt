@@ -9,9 +9,10 @@ import androidx.compose.remote.creation.dsl.fillMaxWidth
 import androidx.compose.remote.creation.dsl.onClick
 import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.ripple
+import com.pluu.sample.remote.server.utils.RcText
 import com.pluu.sample.remote.server.utils.createRcBuffer
-import com.pluu.sample.remote.server.utils.dp
 import com.pluu.sample.remote.server.utils.getHeaderTags
+import com.pluu.sample.remote.server.utils.rdp
 import com.pluu.sample.remote.server.utils.rsp
 import com.pluu.sample.remote.server.utils.toDensityScope
 import io.ktor.server.response.respondBytes
@@ -38,14 +39,14 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                                 Modifier
                                     .fillMaxWidth()
                                     .ripple()
-                                    .padding(8.dp)
+                                    .padding(8.rdp)
                                     .onClick {
                                         hostAction("{\"action\":\"navigate\",\"url\":\"$path\"}")
                                     },
                             horizontal = RcHorizontalPositioning.Start,
                             vertical = RcVerticalPositioning.Center,
                         ) {
-                            Text(
+                            RcText(
                                 text = name,
                                 fontSize = 24.rsp,
                             )
