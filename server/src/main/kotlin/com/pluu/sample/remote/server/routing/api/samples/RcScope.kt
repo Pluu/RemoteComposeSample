@@ -13,10 +13,10 @@ context(ds: DensityScope)
 fun RcScope.renderRcScopeSample() {
     Column(Modifier.padding(8.rdp)) {
         RcText("RcScope Features")
-        
+
         val dynamicText = remoteText("Dynamic Text via remoteText")
-        Text(dynamicText, Modifier.padding(top = 8.rdp))
-        
+        RcText(dynamicText)
+
         RcText("Nested Boxes", Modifier.padding(top = 16.rdp))
         Box(Modifier.size(100.rdp).background(0xFFE0E0E0.toInt()).padding(10.rdp)) {
             Box(Modifier.size(80.rdp).background(0xFFBDBDBD.toInt()).padding(10.rdp)) {

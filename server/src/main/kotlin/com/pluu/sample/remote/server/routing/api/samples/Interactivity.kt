@@ -8,8 +8,6 @@ import androidx.compose.remote.creation.dsl.background
 import androidx.compose.remote.creation.dsl.fillMaxWidth
 import androidx.compose.remote.creation.dsl.height
 import androidx.compose.remote.creation.dsl.onClick
-import androidx.compose.remote.creation.dsl.onDoubleClick
-import androidx.compose.remote.creation.dsl.onLongClick
 import androidx.compose.remote.creation.dsl.padding
 import androidx.compose.remote.creation.dsl.ripple
 import com.pluu.sample.remote.server.utils.DensityScope
@@ -40,14 +38,11 @@ fun RcScope.renderInteractivitySample() {
                 .fillMaxWidth()
                 .height(60.rdp)
                 .ripple()
-                .background(0xFFD0D0D0.toInt())
-                .onLongClick {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Long Click!\"}")
-                },
+                .background(0xFFD0D0D0.toInt()),
             vertical = RcVerticalPositioning.Center,
             horizontal = RcHorizontalPositioning.Center,
         ) {
-            RcText("Long Click")
+            RcText("[미동작] onLongClick")
         }
 
         Box(
@@ -56,14 +51,11 @@ fun RcScope.renderInteractivitySample() {
                 .fillMaxWidth()
                 .height(60.rdp)
                 .ripple()
-                .background(0xFFC0C0C0.toInt())
-                .onDoubleClick {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Double Click!\"}")
-                },
+                .background(0xFFC0C0C0.toInt()),
             vertical = RcVerticalPositioning.Center,
             horizontal = RcHorizontalPositioning.Center,
         ) {
-            RcText("Double Click")
+            RcText("[미동작] onDoubleClick")
         }
     }
 }
