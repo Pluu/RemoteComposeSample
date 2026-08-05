@@ -24,12 +24,12 @@ fun RcScope.renderInteractivitySample() {
                 .ripple()
                 .background(0xFFE0E0E0.toInt())
                 .onClick {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Single Click!\"}")
+                    hostAction("{\"action\":\"toast\",\"message\":\"단일 클릭!\"}")
                 },
             vertical = RcVerticalPositioning.Center,
             horizontal = RcHorizontalPositioning.Center,
         ) {
-            RcText("Single Click")
+            RcText("단일 클릭")
         }
 
         Box(

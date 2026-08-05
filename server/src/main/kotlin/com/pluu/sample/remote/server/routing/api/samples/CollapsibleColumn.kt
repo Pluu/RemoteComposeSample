@@ -1,7 +1,6 @@
 package com.pluu.sample.remote.server.routing.api.samples
 
 import androidx.compose.remote.creation.dsl.Modifier
-import androidx.compose.remote.creation.dsl.RcFontWeight
 import androidx.compose.remote.creation.dsl.RcScope
 import androidx.compose.remote.creation.dsl.background
 import androidx.compose.remote.creation.dsl.fillMaxWidth
@@ -14,36 +13,35 @@ import com.pluu.sample.remote.server.utils.rsp
 
 context(ds: DensityScope)
 fun RcScope.renderCollapsibleColumnSample() {
-    RcText("CollapsibleColumn", fontWeight = RcFontWeight.Bold)
-    // CollapsibleColumn hides items based on priority when space is limited
+    // CollapsibleColumn은 공간이 부족할 때 우선순위에 따라 항목을 숨깁니다.
     Column(
         Modifier
             .height(80.rdp)
             .background(0xFFE0E0E0.toInt())
             .fillMaxWidth()
     ) {
-        RcText("(Fixed Parent Height: 80rdp)", fontSize = 12.rsp)
+        RcText("(고정된 부모 높이: 80rdp)", fontSize = 12.rsp)
         CollapsibleColumn(Modifier.fillMaxWidth()) {
             RcText(
-                "Priority 1 (High)",
+                "우선순위 1 (높음)",
                 Modifier
                     .verticalCollapsiblePriority(1f)
                     .background(0xFFFFCCCC.toInt())
             )
             RcText(
-                "Priority 2",
+                "우선순위 2",
                 Modifier
                     .verticalCollapsiblePriority(2f)
                     .background(0xFFCCFFCC.toInt())
             )
             RcText(
-                "Priority 3",
+                "우선순위 3",
                 Modifier
                     .verticalCollapsiblePriority(3f)
                     .background(0xFFCCCCFF.toInt())
             )
             RcText(
-                "Priority 4 (Low)",
+                "우선순위 4 (낮음)",
                 Modifier
                     .verticalCollapsiblePriority(4f)
                     .background(0xFFDDDDDD.toInt())

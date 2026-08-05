@@ -1,17 +1,14 @@
 package com.pluu.sample.remote.server.routing.api.samples
 
 import androidx.compose.remote.creation.dsl.Modifier
-import androidx.compose.remote.creation.dsl.RcFontWeight
 import androidx.compose.remote.creation.dsl.RcScope
 import androidx.compose.remote.creation.dsl.background
 import androidx.compose.remote.creation.dsl.size
 import com.pluu.sample.remote.server.utils.DensityScope
-import com.pluu.sample.remote.server.utils.RcText
 import com.pluu.sample.remote.server.utils.rdp
 
 context(ds: DensityScope)
 fun RcScope.renderCanvasSample() {
-    RcText("Canvas Sample", fontWeight = RcFontWeight.Bold)
     Canvas(Modifier.size(200.rdp).background(0xFFF0F0F0.toInt())) {
         paint {
             color(0xFFFF0000.toInt())

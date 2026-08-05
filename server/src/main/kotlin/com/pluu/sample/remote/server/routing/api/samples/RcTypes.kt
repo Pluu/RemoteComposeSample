@@ -14,10 +14,10 @@ fun RcScope.renderRcTypesSample() {
     val f = remoteFloat(3.14159f)
     val c = remoteColor(0xFFFF0000.toInt())
 
-    RcText("Remote Integer (Constant): 42")
-    RcText("Remote Float: " + f.format(1, 4))
+    RcText("원격 정수 (상수): 42")
+    RcText("원격 실수: " + f.format(1, 4))
     Row(vertical = RcVerticalPositioning.Center) {
-        RcText("Remote Color: ")
+        RcText("원격 색상: ")
         Box(Modifier.size(24.rdp).background(c))
     }
 }

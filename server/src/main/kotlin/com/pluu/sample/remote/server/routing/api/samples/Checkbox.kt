@@ -9,6 +9,5 @@ import com.pluu.sample.remote.server.utils.rdp
 
 context(ds: DensityScope)
 fun RcScope.renderCheckboxSample() {
-    RcText("Checkbox Sample")
-    RcText("TODO: Implement Checkbox Sample", Modifier.padding(top = 8.rdp))
+    RcText("TODO: 체크박스 샘플 구현", Modifier.padding(top = 8.rdp))
 }

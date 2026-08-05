@@ -12,14 +12,14 @@ import com.pluu.sample.remote.server.utils.rdp
 context(ds: DensityScope)
 fun RcScope.renderAnimationSample() {
     Column(Modifier.padding(8.rdp)) {
-        RcText("Animation Sample")
-        RcText("Uses animationTime() for dynamic properties")
+        RcText("애니메이션 샘플")
+        RcText("동적 속성을 위해 animationTime()을 사용합니다")
 
-        // animationTime() returns seconds since the start of the animation.
+        // animationTime()은 애니메이션 시작 후 경과된 시간(초)을 반환합니다.
         val time = animationTime()
-        val angle = time * remoteFloat(60f) // 60 degrees per second
+        val angle = time * remoteFloat(60f) // 초당 60도
         
-        RcText("Rotating Box (Simulated via Canvas)", Modifier.padding(top = 16.rdp))
+        RcText("회전하는 박스 (Canvas 시뮬레이션)", Modifier.padding(top = 16.rdp))
         Canvas(Modifier.size(100.rdp).background(0xFFEEEEEE.toInt())) {
             rotate(angle, 50.rdp.rf, 50.rdp.rf)
             drawRect(25.rdp, 25.rdp, 75.rdp, 75.rdp)

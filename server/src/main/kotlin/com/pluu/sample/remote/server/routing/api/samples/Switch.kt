@@ -9,6 +9,5 @@ import com.pluu.sample.remote.server.utils.rdp
 
 context(ds: DensityScope)
 fun RcScope.renderSwitchSample() {
-    RcText("Switch Sample")
-    RcText("TODO: Implement Switch Sample", Modifier.padding(top = 8.rdp))
+    RcText("TODO: 스위치 샘플 구현", Modifier.padding(top = 8.rdp))
 }

@@ -17,27 +17,24 @@ import com.pluu.sample.remote.server.utils.rdp
 
 context(ds: DensityScope)
 fun RcScope.renderGesturesSample() {
-    Column(Modifier.fillMaxWidth().padding(8.rdp)) {
-        RcText("Touch Gestures Sample")
-        Box(
-            Modifier
-                .padding(top = 16.rdp)
-                .fillMaxWidth()
-                .height(100.rdp)
-                .background(0xFFE0E0E0.toInt())
-                .onTouchDown {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Touch Down!\"}")
-                }
-                .onTouchUp {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Touch Up!\"}")
-                }
-                .onTouchCancel {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Touch Cancel!\"}")
-                },
-            vertical = RcVerticalPositioning.Center,
-            horizontal = RcHorizontalPositioning.Center,
-        ) {
-            RcText("Touch Me (Down/Up/Cancel)")
-        }
+    Box(
+        Modifier
+            .padding(top = 16.rdp)
+            .fillMaxWidth()
+            .height(100.rdp)
+            .background(0xFFE0E0E0.toInt())
+            .onTouchDown {
+                hostAction("{\"action\":\"toast\",\"message\":\"터치 다운!\"}")
+            }
+            .onTouchUp {
+                hostAction("{\"action\":\"toast\",\"message\":\"터치 업!\"}")
+            }
+            .onTouchCancel {
+                hostAction("{\"action\":\"toast\",\"message\":\"터치 취소!\"}")
+            },
+        vertical = RcVerticalPositioning.Center,
+        horizontal = RcHorizontalPositioning.Center,
+    ) {
+        RcText("터치하세요 (Down/Up/Cancel)")
     }
 }

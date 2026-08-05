@@ -8,8 +8,8 @@ import com.pluu.sample.remote.server.utils.rsp
 
 context(ds: DensityScope)
 fun RcScope.renderTextSample() {
-    RcText("Normal Text")
-    RcText("Bold Text", fontSize = 20.rsp, fontWeight = RcFontWeight.Bold)
-    RcText("Large Text", fontSize = 32.rsp)
-    RcText("Custom Color", color = 0xFFFF0000.toInt())
+    RcText("일반 텍스트")
+    RcText("굵은 텍스트", fontSize = 20.rsp, fontWeight = RcFontWeight.Bold)
+    RcText("큰 텍스트", fontSize = 32.rsp)
+    RcText("커스텀 색상", color = 0xFFFF0000.toInt())
 }

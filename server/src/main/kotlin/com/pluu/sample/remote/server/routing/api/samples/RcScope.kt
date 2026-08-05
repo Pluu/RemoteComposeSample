@@ -12,12 +12,10 @@ import com.pluu.sample.remote.server.utils.rdp
 context(ds: DensityScope)
 fun RcScope.renderRcScopeSample() {
     Column(Modifier.padding(8.rdp)) {
-        RcText("RcScope Features")
-
-        val dynamicText = remoteText("Dynamic Text via remoteText")
+        val dynamicText = remoteText("remoteText를 통한 동적 텍스트")
         RcText(dynamicText)
 
-        RcText("Nested Boxes", Modifier.padding(top = 16.rdp))
+        RcText("중첩된 박스", Modifier.padding(top = 16.rdp))
         Box(Modifier.size(100.rdp).background(0xFFE0E0E0.toInt()).padding(10.rdp)) {
             Box(Modifier.size(80.rdp).background(0xFFBDBDBD.toInt()).padding(10.rdp)) {
                 Box(Modifier.size(60.rdp).background(0xFF757575.toInt()))

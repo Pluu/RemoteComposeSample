@@ -21,11 +21,11 @@ fun RcScope.renderButtonSample() {
                 .height(48.rdp)
                 .background(0xFF6200EE)
                 .onClick {
-                    hostAction("{\"action\":\"toast\",\"message\":\"Button Clicked!\"}")
+                    hostAction("{\"action\":\"toast\",\"message\":\"버튼 클릭됨!\"}")
                 },
         vertical = RcVerticalPositioning.Center,
         horizontal = RcHorizontalPositioning.Center,
     ) {
-        RcText("Click Me", color = 0xFFFFFFFF.toInt())
+        RcText("클릭하세요", color = 0xFFFFFFFF.toInt())
     }
 }
