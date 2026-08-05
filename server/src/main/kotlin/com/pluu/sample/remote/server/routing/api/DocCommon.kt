@@ -27,19 +27,19 @@ fun RcScope.renderSampleContent(name: String) {
             .padding(16.rdp),
     ) {
         when (name) {
-            "Text" -> renderTextSample()
-            "Button" -> renderButtonSample()
-            "Modifier" -> renderModifierSample()
-            "Layout" -> renderLayoutSample()
-            "Icon", "Image" -> renderImageSample()
-            "Checkbox", "Switch" -> renderToggleSample()
-            "RcScope" -> renderRcScopeSample()
-            "RcTypes" -> renderRcTypesSample()
-            "DrawScope", "RcDrawing" -> renderDrawingSample()
-            "RcInteractivity", "Gestures" -> renderInteractivitySample()
-            "Animation" -> renderAnimationSample()
+            SampleNames.TEXT -> renderTextSample()
+            SampleNames.BUTTON -> renderButtonSample()
+            SampleNames.MODIFIER -> renderModifierSample()
+            SampleNames.LAYOUT -> renderLayoutSample()
+            SampleNames.RCTYPES -> renderRcTypesSample()
+            SampleNames.DRAWSCOPE, SampleNames.RCDRAWING, SampleNames.CANVAS -> renderDrawingSample()
+            SampleNames.IMAGE, SampleNames.ICON -> renderImageSample()
+            SampleNames.CHECKBOX, SampleNames.SWITCH -> renderToggleSample()
+            SampleNames.RCINTERACTIVITY, SampleNames.GESTURES -> renderInteractivitySample()
+            SampleNames.ANIMATION -> renderAnimationSample()
+            SampleNames.RCSCOPE -> renderRcScopeSample()
             else -> {
-                RcText("Detail implementation for $name coming soon...")
+                RcText("[미구현] $name")
             }
         }
     }

@@ -3,6 +3,7 @@ package com.pluu.sample.remote.server.routing.api
 import com.pluu.sample.remote.common.ApiItem
 import com.pluu.sample.remote.common.ApiList
 import com.pluu.sample.remote.common.ApiResponse
+import com.pluu.sample.remote.server.routing.api.SampleNames
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
@@ -15,21 +16,21 @@ fun Route.apiListRoutes() {
                     ApiList(
                         sample =
                             listOf(
-                                ApiItem("Modifier", "/api/doc/Modifier"),
-                                ApiItem("RcScope", "/api/doc/RcScope"),
-                                ApiItem("RcTypes", "/api/doc/RcTypes"),
-                                ApiItem("Layout", "/api/doc/Layout"),
-                                ApiItem("DrawScope", "/api/doc/DrawScope"),
-                                ApiItem("Text", "/api/doc/Text"),
-                                ApiItem("Button", "/api/doc/Button"),
-                                ApiItem("Image", "/api/doc/Image"),
-                                ApiItem("Icon", "/api/doc/Icon"),
-                                ApiItem("Checkbox", "/api/doc/Checkbox"),
-                                ApiItem("Switch", "/api/doc/Switch"),
-                                ApiItem("RcDrawing", "/api/doc/RcDrawing"),
-                                ApiItem("RcInteractivity", "/api/doc/RcInteractivity"),
-                                ApiItem("Animation", "/api/doc/Animation"),
-                                ApiItem("Gestures", "/api/doc/Gestures"),
+                                ApiItem(SampleNames.MODIFIER, "/api/doc/${SampleNames.MODIFIER}"),
+                                ApiItem(SampleNames.RCSCOPE, "/api/doc/${SampleNames.RCSCOPE}"),
+                                ApiItem(SampleNames.RCTYPES, "/api/doc/${SampleNames.RCTYPES}"),
+                                ApiItem(SampleNames.LAYOUT, "/api/doc/${SampleNames.LAYOUT}"),
+                                ApiItem(SampleNames.DRAWSCOPE, "/api/doc/${SampleNames.DRAWSCOPE}"),
+                                ApiItem(SampleNames.TEXT, "/api/doc/${SampleNames.TEXT}"),
+                                ApiItem(SampleNames.BUTTON, "/api/doc/${SampleNames.BUTTON}"),
+                                ApiItem(SampleNames.IMAGE, "/api/doc/${SampleNames.IMAGE}"),
+                                ApiItem(SampleNames.ICON, "/api/doc/${SampleNames.ICON}"),
+                                ApiItem(SampleNames.CHECKBOX, "/api/doc/${SampleNames.CHECKBOX}"),
+                                ApiItem(SampleNames.SWITCH, "/api/doc/${SampleNames.SWITCH}"),
+                                ApiItem(SampleNames.RCDRAWING, "/api/doc/${SampleNames.RCDRAWING}"),
+                                ApiItem(SampleNames.RCINTERACTIVITY, "/api/doc/${SampleNames.RCINTERACTIVITY}"),
+                                ApiItem(SampleNames.ANIMATION, "/api/doc/${SampleNames.ANIMATION}"),
+                                ApiItem(SampleNames.GESTURES, "/api/doc/${SampleNames.GESTURES}"),
                             ),
                         custom = emptyList(),
                     ),

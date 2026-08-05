@@ -1,6 +1,7 @@
 package com.pluu.sample.remote.server.routing.api
 
 import androidx.compose.remote.creation.dsl.RcProfile
+import com.pluu.sample.remote.server.routing.api.SampleNames
 import com.pluu.sample.remote.server.utils.createRcBuffer
 import com.pluu.sample.remote.server.utils.getHeaderTags
 import com.pluu.sample.remote.server.utils.toDensityScope
@@ -11,21 +12,21 @@ import io.ktor.server.routing.get
 fun Route.docRoutes(rcProfile: RcProfile) {
     val allSamples =
         listOf(
-            "Modifier",
-            "RcScope",
-            "RcTypes",
-            "Layout",
-            "DrawScope",
-            "Text",
-            "Button",
-            "Image",
-            "Icon",
-            "Checkbox",
-            "Switch",
-            "RcDrawing",
-            "RcInteractivity",
-            "Animation",
-            "Gestures",
+            SampleNames.MODIFIER,
+            SampleNames.RCSCOPE,
+            SampleNames.RCTYPES,
+            SampleNames.LAYOUT,
+            SampleNames.DRAWSCOPE,
+            SampleNames.TEXT,
+            SampleNames.BUTTON,
+            SampleNames.IMAGE,
+            SampleNames.ICON,
+            SampleNames.CHECKBOX,
+            SampleNames.SWITCH,
+            SampleNames.RCDRAWING,
+            SampleNames.RCINTERACTIVITY,
+            SampleNames.ANIMATION,
+            SampleNames.GESTURES,
         )
 
     allSamples.forEach { name ->
