@@ -6,14 +6,15 @@ import androidx.compose.remote.creation.dsl.fillMaxSize
 import androidx.compose.remote.creation.dsl.padding
 import com.pluu.sample.remote.server.routing.api.samples.renderAnimationSample
 import com.pluu.sample.remote.server.routing.api.samples.renderButtonSample
+import com.pluu.sample.remote.server.routing.api.samples.renderCheckboxSample
 import com.pluu.sample.remote.server.routing.api.samples.renderDrawingSample
 import com.pluu.sample.remote.server.routing.api.samples.renderInteractivitySample
 import com.pluu.sample.remote.server.routing.api.samples.renderLayoutSample
 import com.pluu.sample.remote.server.routing.api.samples.renderModifierSample
 import com.pluu.sample.remote.server.routing.api.samples.renderRcScopeSample
 import com.pluu.sample.remote.server.routing.api.samples.renderRcTypesSample
+import com.pluu.sample.remote.server.routing.api.samples.renderSwitchSample
 import com.pluu.sample.remote.server.routing.api.samples.renderTextSample
-import com.pluu.sample.remote.server.routing.api.samples.renderToggleSample
 import com.pluu.sample.remote.server.utils.DensityScope
 import com.pluu.sample.remote.server.utils.RcText
 import com.pluu.sample.remote.server.utils.rdp
@@ -31,9 +32,13 @@ fun RcScope.renderSampleContent(name: String) {
             SampleNames.MODIFIER -> renderModifierSample()
             SampleNames.LAYOUT -> renderLayoutSample()
             SampleNames.RCTYPES -> renderRcTypesSample()
-            SampleNames.DRAWSCOPE, SampleNames.RCDRAWING, SampleNames.CANVAS -> renderDrawingSample()
-            SampleNames.CHECKBOX, SampleNames.SWITCH -> renderToggleSample()
-            SampleNames.RCINTERACTIVITY, SampleNames.GESTURES -> renderInteractivitySample()
+            SampleNames.DRAWSCOPE,
+            SampleNames.RCDRAWING,
+            SampleNames.CANVAS -> renderDrawingSample()
+            SampleNames.CHECKBOX -> renderCheckboxSample()
+            SampleNames.SWITCH -> renderSwitchSample()
+            SampleNames.RCINTERACTIVITY,
+            SampleNames.GESTURES -> renderInteractivitySample()
             SampleNames.ANIMATION -> renderAnimationSample()
             SampleNames.RCSCOPE -> renderRcScopeSample()
             else -> {
