@@ -25,7 +25,12 @@ fun main() {
             RcProfiles.PROFILE_ANDROIDX,
             JvmRcPlatformServices(),
         ) { displayInfo, p, callback ->
-            RemoteComposeWriter(displayInfo, null, p, callback)
+            RemoteComposeWriter(
+                displayInfo,
+                null,
+                p,
+                callback
+            )
         }
     val rcProfile = RcProfile(profile)
 
