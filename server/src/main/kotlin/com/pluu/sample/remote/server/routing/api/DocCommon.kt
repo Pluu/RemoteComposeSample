@@ -6,8 +6,10 @@ import androidx.compose.remote.creation.dsl.fillMaxSize
 import androidx.compose.remote.creation.dsl.padding
 import com.pluu.sample.remote.server.routing.api.samples.renderAnimationSample
 import com.pluu.sample.remote.server.routing.api.samples.renderButtonSample
+import com.pluu.sample.remote.server.routing.api.samples.renderCanvasSample
 import com.pluu.sample.remote.server.routing.api.samples.renderCheckboxSample
-import com.pluu.sample.remote.server.routing.api.samples.renderDrawingSample
+import com.pluu.sample.remote.server.routing.api.samples.renderGesturesSample
+import com.pluu.sample.remote.server.routing.api.samples.renderImageSample
 import com.pluu.sample.remote.server.routing.api.samples.renderInteractivitySample
 import com.pluu.sample.remote.server.routing.api.samples.renderLayoutSample
 import com.pluu.sample.remote.server.routing.api.samples.renderModifierSample
@@ -32,13 +34,12 @@ fun RcScope.renderSampleContent(name: String) {
             SampleNames.MODIFIER -> renderModifierSample()
             SampleNames.LAYOUT -> renderLayoutSample()
             SampleNames.RCTYPES -> renderRcTypesSample()
-            SampleNames.DRAWSCOPE,
-            SampleNames.RCDRAWING,
-            SampleNames.CANVAS -> renderDrawingSample()
+            SampleNames.CANVAS -> renderCanvasSample()
+            SampleNames.IMAGE, SampleNames.ICON -> renderImageSample()
             SampleNames.CHECKBOX -> renderCheckboxSample()
             SampleNames.SWITCH -> renderSwitchSample()
-            SampleNames.RCINTERACTIVITY,
-            SampleNames.GESTURES -> renderInteractivitySample()
+            SampleNames.RCINTERACTIVITY -> renderInteractivitySample()
+            SampleNames.GESTURES -> renderGesturesSample()
             SampleNames.ANIMATION -> renderAnimationSample()
             SampleNames.RCSCOPE -> renderRcScopeSample()
             else -> {

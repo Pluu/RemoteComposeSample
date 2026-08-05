@@ -11,6 +11,7 @@ import androidx.compose.remote.creation.dsl.onClick
 import androidx.compose.remote.creation.dsl.onDoubleClick
 import androidx.compose.remote.creation.dsl.onLongClick
 import androidx.compose.remote.creation.dsl.padding
+import androidx.compose.remote.creation.dsl.ripple
 import com.pluu.sample.remote.server.utils.DensityScope
 import com.pluu.sample.remote.server.utils.RcText
 import com.pluu.sample.remote.server.utils.rdp
@@ -22,6 +23,7 @@ fun RcScope.renderInteractivitySample() {
             Modifier
                 .fillMaxWidth()
                 .height(60.rdp)
+                .ripple()
                 .background(0xFFE0E0E0.toInt())
                 .onClick {
                     hostAction("{\"action\":\"toast\",\"message\":\"Single Click!\"}")
@@ -37,6 +39,7 @@ fun RcScope.renderInteractivitySample() {
                 .padding(top = 8.rdp)
                 .fillMaxWidth()
                 .height(60.rdp)
+                .ripple()
                 .background(0xFFD0D0D0.toInt())
                 .onLongClick {
                     hostAction("{\"action\":\"toast\",\"message\":\"Long Click!\"}")
@@ -52,6 +55,7 @@ fun RcScope.renderInteractivitySample() {
                 .padding(top = 8.rdp)
                 .fillMaxWidth()
                 .height(60.rdp)
+                .ripple()
                 .background(0xFFC0C0C0.toInt())
                 .onDoubleClick {
                     hostAction("{\"action\":\"toast\",\"message\":\"Double Click!\"}")
