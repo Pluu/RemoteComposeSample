@@ -16,9 +16,9 @@ fun RcScope.renderCollapsibleColumnSample() {
     // CollapsibleColumn은 공간이 부족할 때 우선순위에 따라 항목을 숨깁니다.
     Column(
         Modifier
-            .height(80.rdp)
-            .background(0xFFE0E0E0.toInt())
             .fillMaxWidth()
+            .height(60.rdp)
+            .background(0xFFE0E0E0.toInt())
     ) {
         RcText("(고정된 부모 높이: 80rdp)", fontSize = 12.rsp)
         CollapsibleColumn(Modifier.fillMaxWidth()) {
