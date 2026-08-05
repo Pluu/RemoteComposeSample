@@ -6,5 +6,5 @@ import com.pluu.sample.remote.server.utils.RcText
 
 context(ds: DensityScope)
 fun RcScope.renderImageSample() {
-    RcText("[미구현] Image")
+    RcText("[현재 에러] Image")
 }

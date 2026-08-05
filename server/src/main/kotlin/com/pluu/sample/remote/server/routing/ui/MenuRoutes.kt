@@ -48,7 +48,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                         ) {
                             RcText(
                                 text = name,
-                                fontSize = 24.rsp,
+                                fontSize = 18.rsp,
                             )
                         }
                     }
