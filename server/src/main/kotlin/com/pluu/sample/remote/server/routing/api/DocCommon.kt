@@ -7,7 +7,6 @@ import androidx.compose.remote.creation.dsl.padding
 import com.pluu.sample.remote.server.routing.api.samples.renderAnimationSample
 import com.pluu.sample.remote.server.routing.api.samples.renderButtonSample
 import com.pluu.sample.remote.server.routing.api.samples.renderDrawingSample
-import com.pluu.sample.remote.server.routing.api.samples.renderImageSample
 import com.pluu.sample.remote.server.routing.api.samples.renderInteractivitySample
 import com.pluu.sample.remote.server.routing.api.samples.renderLayoutSample
 import com.pluu.sample.remote.server.routing.api.samples.renderModifierSample
@@ -33,7 +32,6 @@ fun RcScope.renderSampleContent(name: String) {
             SampleNames.LAYOUT -> renderLayoutSample()
             SampleNames.RCTYPES -> renderRcTypesSample()
             SampleNames.DRAWSCOPE, SampleNames.RCDRAWING, SampleNames.CANVAS -> renderDrawingSample()
-            SampleNames.IMAGE, SampleNames.ICON -> renderImageSample()
             SampleNames.CHECKBOX, SampleNames.SWITCH -> renderToggleSample()
             SampleNames.RCINTERACTIVITY, SampleNames.GESTURES -> renderInteractivitySample()
             SampleNames.ANIMATION -> renderAnimationSample()
