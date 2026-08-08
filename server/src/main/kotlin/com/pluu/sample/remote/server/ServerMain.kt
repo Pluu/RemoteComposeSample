@@ -9,6 +9,7 @@ import androidx.compose.remote.creation.profile.Profile
 import com.pluu.sample.remote.server.routing.api.apiListRoutes
 import com.pluu.sample.remote.server.routing.api.docRoutes
 import com.pluu.sample.remote.server.routing.ui.customListUiRoutes
+import com.pluu.sample.remote.server.routing.ui.menuDslRoutes
 import com.pluu.sample.remote.server.routing.ui.menuRoutes
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
@@ -47,6 +48,7 @@ fun main() {
             menuRoutes(rcProfile)
             apiListRoutes()
             docRoutes(rcProfile)
+            menuDslRoutes()
             customListUiRoutes(rcProfile)
         }
     }.start(wait = true)

@@ -31,6 +31,7 @@ fun Route.menuRoutes(rcProfile: RcProfile) {
                 Column(Modifier.fillMaxSize()) {
                     listOf(
                         "API" to "/ui/api_list",
+                        "DSL" to "/ui/dsl",
                         "Custom" to "/ui/custom_list",
                         "Classic" to "/ui/classic_list",
                     ).forEach { (name, path) ->

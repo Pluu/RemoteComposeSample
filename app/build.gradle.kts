@@ -40,6 +40,8 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
 
     implementation(libs.remotecompose.core)
+    implementation(libs.remotecompose.creation)
+    implementation(libs.remotecompose.creation.core)
     implementation(libs.remotecompose.player.view)
     implementation(libs.remotecompose.player.compose)
     implementation(libs.remotecompose.player.core)

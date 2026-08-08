@@ -50,6 +50,7 @@ remotecompose-player-view = { group = "androidx.compose.remote", name = "remote-
 remotecompose-player-compose = { group = "androidx.compose.remote", name = "remote-player-compose", version.ref = "remote-compose" }
 remotecompose-player-core = { group = "androidx.compose.remote", name = "remote-player-core", version.ref = "remote-compose" }
 remotecompose-creation = { group = "androidx.compose.remote", name = "remote-creation", version.ref = "remote-compose" }
+remotecompose-creation-core = { group = "androidx.compose.remote", name = "remote-creation-core", version.ref = "remote-compose" }
 remotecompose-tooling-preview = { group = "androidx.compose.remote", name = "remote-tooling-preview", version.ref = "remote-compose" }
 
 [plugins]

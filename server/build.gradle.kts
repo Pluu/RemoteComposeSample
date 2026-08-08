@@ -21,4 +21,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.remotecompose.creation)
+    implementation(libs.remotecompose.creation.core)
 }
